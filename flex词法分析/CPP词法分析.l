@@ -45,9 +45,6 @@ OPERATOR {SIMPOE_OPERATOR}|{SIMPOE_OPERATOR}"="|(\+\+)|(\-\-)|(\>\>)|(\<\<)|"->"
 {NUMBER} {
     fprintf (yyout, "%d行: %s\t数字\n",line_num, yytext);
 }
-{IDENTIFIER} {
-    fprintf (yyout, "%d行: %s\t标识符\n", line_num, yytext);
-}
 {SPACE}  {
     /*do nothing...*/
 }
@@ -81,8 +78,11 @@ OPERATOR {SIMPOE_OPERATOR}|{SIMPOE_OPERATOR}"="|(\+\+)|(\-\-)|(\>\>)|(\<\<)|"->"
     fprintf (yyout, "%d行: %s\t运算符\n", line_num, yytext);
 }
 {RESERVED} {
-    /* 保留字，优先级放最后 */
+    /* 保留字，优先级放除了标识符之后 */
     fprintf(yyout, "%d行: %s\t保留字\n", line_num,yytext);
+}
+{IDENTIFIER} {
+    fprintf (yyout, "%d行: %s\t标识符\n", line_num, yytext);
 }
 "//".* {}
 "/*"."*/" {/* 只有一行不到的情况*/ }
