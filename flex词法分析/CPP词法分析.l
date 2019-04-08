@@ -20,7 +20,7 @@ NEWLINE [\n]+
 SEPERATER [\.;\"\'\(\)\[\]\{\},:]
 MAYBE_HEADER [\"<](.)+[\">]
 SIMPOE_OPERATOR [\+\-\*\/\&\^\%\>\<=~]
-OPERATOR {SIMPOE_OPERATOR}|{SIMPOE_OPERATOR}"="|(\+\+)|(\-\-)|(\>\>)|(\<\<)|"->"|"::"|(new(\[\])?)|(delete(\[\])?)|sizeof
+OPERATOR {SIMPOE_OPERATOR}|{SIMPOE_OPERATOR}"="|[\+\-\/\&\>\<\=:]{2}|"->"|(new(\[\])?)|(delete(\[\])?)|sizeof
 %start forPredef forHeader
 
 %%
@@ -31,7 +31,6 @@ OPERATOR {SIMPOE_OPERATOR}|{SIMPOE_OPERATOR}"="|(\+\+)|(\-\-)|(\>\>)|(\<\<)|"->"
 }
 <forPredef>"define" {
     fprintf (yyout, "%d行: %s\t宏定义\n", line_num, yytext);
-    BEGIN 0;
 }
 <forPredef>"include" {
     fprintf (yyout, "%d行: %s\t含头文件\n", line_num, yytext);
@@ -39,7 +38,6 @@ OPERATOR {SIMPOE_OPERATOR}|{SIMPOE_OPERATOR}"="|(\+\+)|(\-\-)|(\>\>)|(\<\<)|"->"
 }
 <forPredef>"if"|"endif" {
     fprintf (yyout, "%d行: %s\t条件编译指令\n", line_num, yytext);
-    BEGIN 0;
 }
 {SPACE}  {
     /*do nothing...*/
@@ -48,6 +46,7 @@ OPERATOR {SIMPOE_OPERATOR}|{SIMPOE_OPERATOR}"="|(\+\+)|(\-\-)|(\>\>)|(\<\<)|"->"
     preproc_flag = 0;
     line_num++;
     fprintf(yyout, "------%d行------\n", line_num);
+    BEGIN 0; // 要记得!
 }
 <forHeader>{MAYBE_HEADER} {
     // 去头去尾
