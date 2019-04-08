@@ -36,8 +36,9 @@ OPERATOR {SIMPOE_OPERATOR}|{SIMPOE_OPERATOR}"="|[\+\-\/\&\>\<\=:]{2}|"->"|(new(\
     fprintf (yyout, "%d行: %s\t含头文件\n", line_num, yytext);
     BEGIN forHeader;
 }
-<forPredef>"if"|"endif" {
+<forPredef>"if"|"endif"|"else"|"ifdef" {
     fprintf (yyout, "%d行: %s\t条件编译指令\n", line_num, yytext);
+    REJECT; // 也是标识符
 }
 {SPACE}  {
     /*do nothing...*/
