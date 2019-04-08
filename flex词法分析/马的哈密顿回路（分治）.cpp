@@ -1,8 +1,12 @@
 #include <iostream>
-#include <fstream>
+    #include <fstream>
 #include <vector>
+#include <stdlib.h>
 #define MAXXX 23333
 #if 0
+    #include "23333"
+    #include <666>
+    #include _666iron
     delete[];
     delete;
     sizeof;
