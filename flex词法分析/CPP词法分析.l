@@ -25,9 +25,6 @@ OPERATOR {SIMPOE_OPERATOR}|{SIMPOE_OPERATOR}"="|(\+\+)|(\-\-)|(\>\>)|(\<\<)|"->"
 %start forPredef forHeader
 
 %%
-{RESERVED} {
-    fprintf(yyout, "%d行: %s\t保留字\n", line_num,yytext);
-}
 {PREPORCESS} {
     fprintf(yyout, "---%d行: 预处理指令---\n", line_num);
     preproc_flag = 1;
@@ -35,10 +32,15 @@ OPERATOR {SIMPOE_OPERATOR}|{SIMPOE_OPERATOR}"="|(\+\+)|(\-\-)|(\>\>)|(\<\<)|"->"
 }
 <forPredef>"define" {
     fprintf (yyout, "%d行: %s\t宏定义\n", line_num, yytext);
+    BEGIN 0;
 }
 <forPredef>"include" {
     fprintf (yyout, "%d行: %s\t含头文件\n", line_num, yytext);
     BEGIN forHeader;
+}
+<forPredef>"if"|"endif" {
+    fprintf (yyout, "%d行: %s\t条件编译指令\n", line_num, yytext);
+    BEGIN 0;
 }
 {NUMBER} {
     fprintf (yyout, "%d行: %s\t数字\n",line_num, yytext);
@@ -77,6 +79,10 @@ OPERATOR {SIMPOE_OPERATOR}|{SIMPOE_OPERATOR}"="|(\+\+)|(\-\-)|(\>\>)|(\<\<)|"->"
 }
 {OPERATOR} {
     fprintf (yyout, "%d行: %s\t运算符\n", line_num, yytext);
+}
+{RESERVED} {
+    /* 保留字，优先级放最后 */
+    fprintf(yyout, "%d行: %s\t保留字\n", line_num,yytext);
 }
 "//".* {}
 "/*"."*/" {/* 只有一行不到的情况*/ }

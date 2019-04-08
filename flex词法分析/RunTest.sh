@@ -1,6 +1,8 @@
 #!/bin/bash
-flex $1
-analyser=`date +%Y-%m-%d-%H:%M`
+# $1为源.cpp文件
+flex CPP词法分析.l
+output="result.txt"
+analyser="词法分析器.exe"
 gcc -g lex.yy.c -o ${analyser}
-./${analyser} $2 $3 & vim -O $3 $2
+./${analyser} $1 ${output} & vim -O ${output} $1
 
