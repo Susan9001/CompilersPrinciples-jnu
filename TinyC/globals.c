@@ -35,13 +35,13 @@ typedef enum {
 extern FILE* source; /* source code text file */
 extern FILE* listing; /* listing output text file */
 extern FILE* code; /* code text file for TM simulator */
-
 extern int lineno = 0; /* source line number for listing */
 
 /**************************************************/
 /***********   Syntax tree for parsing ************/
 /**************************************************/
 
+// treeNode即语法子结构, VN
 typedef enum {StmtK,ExpK} NodeKind;
 typedef enum {IfK,RepeatK,AssignK,ReadK,WriteK} StmtKind;
 typedef enum {OpK,ConstK,IdK} ExpKind;
@@ -51,15 +51,17 @@ typedef enum {Void,Integer,Boolean} ExpType;
 
 #define MAXCHILDREN 3
 
-typedef struct treeNode
-   { struct treeNode * child[MAXCHILDREN];
-     struct treeNode * sibling;
-     int lineno;
+typedef struct treeNode{
+    struct treeNode * child[MAXCHILDREN];
+    struct treeNode * sibling;
+    int lineno;
      NodeKind nodekind;
      union { StmtKind stmt; ExpKind exp;} kind;
-     union { TokenType op;
-             int val;
-             char * name; } attr;
+     union { 
+         TokenType op; // 如果是算符
+         int val; // 如果是值
+         char * name; 
+     } attr;
      ExpType type; /* for type checking of exps */
    } TreeNode;
 

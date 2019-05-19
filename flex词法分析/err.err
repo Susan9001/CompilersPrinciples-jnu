@@ -1,0 +1,28 @@
+CPP词法分析.l:6:5: error: unknown type name ‘bool’
+     bool def_flag = false;
+     ^
+CPP词法分析.l:6:21: error: ‘false’ undeclared here (not in a function)
+     bool def_flag = false;
+                     ^
+CPP词法分析.l: In function ‘yylex’:
+CPP词法分析.l:44:16: error: ‘true’ undeclared (first use in this function)
+     def_flag = true;
+                ^
+CPP词法分析.l:44:16: note: each undeclared identifier is reported only once for each function it appears in
+CPP词法分析.l:51:5: error: unknown type name ‘bool’
+     bool ok = false;
+     ^
+CPP词法分析.l:71:14: error: ‘FALSE’ undeclared (first use in this function)
+     int done=FALSE;
+              ^
+CPP词法分析.l:75:25: error: ‘TRUE’ undeclared (first use in this function)
+         if(c=='/') done=TRUE;
+                         ^
+CPP词法分析.l: In function ‘yylex’:
+CPP词法分析.l:51:5: error: unknown type name ‘bool’
+     bool ok = false;
+     ^
+CPP词法分析.l:51:15: error: ‘false’ undeclared (first use in this function)
+     bool ok = false;
+               ^
+CPP词法分析.l:51:15: note: each undeclared identifier is reported only once for each function it appears in

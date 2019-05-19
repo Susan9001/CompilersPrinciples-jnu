@@ -1,23 +1,22 @@
-    # include <stdlib.h>
+#include <iostream>
+#include <fstream>
+#include <vector>
 #define MAXXX 23333
-#ifdef
 #if 0
-    #include "23333"
-    abd#include _666iron
+    delete[];
+    delete;
+    sizeof;
+    &&; /=;
+    == ++;  --;
+    <vector>
+    11.11e+12;
+    12e-15;
     /*Hold the door...*/
     /*
      * 人艰不拆
      * 且行且珍惜
      */
-    <vector>11.11e+12,12e-15;
-    delete[]; delete 
-    class Hamilton
-    &&;/=;,= --; 
-	void makeHamilton(const int &m, const int &n); // m行n列
-	std::vector<std::pair<int, int>> getTrack();
 #endif
-#include <iostream>
-#include <fstream>
 
 class Hamilton {
 public:

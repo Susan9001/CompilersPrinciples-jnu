@@ -1,4 +1,4 @@
-CC = tcc
+CC = gcc
 OBJ = main.o scan.o util.o
 
 ScanTool	:	$(OBJ)

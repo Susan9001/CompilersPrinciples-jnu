@@ -1,0 +1,14 @@
+<123a123.h>
+"122.h"
+_abc 123,2e+11
+_123;23
+/*abcdef*/
+// abcdef
+/*abckkk
+ iii
+ */
++ 
+; ) ()
++=  <>
+const
+int
