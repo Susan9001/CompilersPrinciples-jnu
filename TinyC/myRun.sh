@@ -1,7 +1,8 @@
 #!/bin/bash
+rm ~/.cache/SpaceVim/swap/*.swp
 input="sample.tny"
 make && make clean
-./ScanTool $input
+./ParseTools $input
 vim -O $input result.txt
 
 

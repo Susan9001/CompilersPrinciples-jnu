@@ -1,10 +1,10 @@
 CC = gcc
 OBJ = main.o parse.o scan.o util.o
 
-ScanTool	:	$(OBJ)
+ParseTools	:	$(OBJ)
 	$(CC) 	-o	$@ 	$^
 %.o	:	%.c
-	$(CC)	-c	$<	
+	$(CC)	-c -g	$<	
 
 .PHONY: clean
 clean:

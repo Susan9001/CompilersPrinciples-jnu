@@ -45,7 +45,11 @@ TreeNode * stmt_sequence(void){
             (token!=ELSE) && (token!=UNTIL)) {
         TreeNode * q;
         match(SEMI);
-        q = statement(); // SEMI
+        // added by qxk; or 分号之后就不能加END, UNTIL这个4个了
+        if ((token==ENDFILE) || (token==END) ||
+            (token==ELSE) || (token==UNTIL)) 
+            break;
+        q = statement(); 
         if (q!=NULL) {
             if (t==NULL) t = p = q;
             else /* now p cannot be NULL either */
@@ -66,10 +70,12 @@ TreeNode * statement(void) {
         case ID : t = assign_stmt(); break;
         case READ : t = read_stmt(); break;
         case WRITE : t = write_stmt(); break;
-        default : syntaxError("unexpected token -> ");
-                  printToken(token,tokenString);
-                  token = getToken();
-                  break;
+        default : 
+            printToken(token,tokenString);
+            syntaxError("unexpected token -> ");
+            printToken(token,tokenString);
+            token = getToken();
+            break;
     } /* end case */
     return t;
 }
