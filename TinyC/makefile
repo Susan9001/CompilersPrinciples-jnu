@@ -1,5 +1,5 @@
 CC = gcc
-OBJ = main.o scan.o util.o
+OBJ = main.o parse.o scan.o util.o
 
 ScanTool	:	$(OBJ)
 	$(CC) 	-o	$@ 	$^

@@ -45,7 +45,7 @@ TreeNode * stmt_sequence(void){
             (token!=ELSE) && (token!=UNTIL)) {
         TreeNode * q;
         match(SEMI);
-        q = statement();
+        q = statement(); // SEMI
         if (q!=NULL) {
             if (t==NULL) t = p = q;
             else /* now p cannot be NULL either */
@@ -75,24 +75,59 @@ TreeNode * statement(void) {
 }
 
 TreeNode * if_stmt(void) {          
-
+    /** if_stmt -> IF exp THEN stmt_sequence END 
+     *          | IF exp THEN stmt_sequence ELSE stmt_sequence END
+     **/
+    TreeNode * t = newStmtNode (IfK);
+    if (t != NULL) {
+        match (IF);
+        t->child[0] = exp ();
+        match (THEN);
+        t->child[1] = stmt_sequence ();
+        if (token == END) {
+            match (token); 
+        }
+        else if (token == ELSE) {
+            t->child[2] = stmt_sequence ();
+            match (END);
+        }
+    }
+    return t;
 }
 
 TreeNode * repeat_stmt(void) {
+    /* repeat_stmt -> REPEAT stmt_sequence UNTIL exp */
+    TreeNode * t = newStmtNode(RepeatK);
+    if (t != NULL) {
+        match (REPEAT);
+        t->child[0] = stmt_sequence();
+        match(UNTIL);
+        t->child[1] = exp();
+    }
+    return t; 
 }
 
 TreeNode * assign_stmt(void) { 
+    /* assign_stmt -> DI ASSIGN exp */
+    TreeNode * t = newStmtNode (AssignK);
+    if (t != NULL) {
+        t->attr.name = copyString (tokenString); // id
+        match (ID);
+        match (ASSIGN);
+        t->child[0] = exp();
+    }
+    return t;
 }
 
 TreeNode * read_stmt(void) {
     /* read_stmt -> READ ID */
     TreeNode * t = newStmtNode (ReadK);
     if (t != NULL) {
-        t->attr.op = READ;
-        t->attr.name = token;
-
-        t->child[0] = 
+        match (READ);
+        t->attr.name = copyString (tokenString); // ID
+        match (ID); // move forward 
     }
+    return t;
 }
 
 TreeNode * write_stmt(void) {
@@ -100,6 +135,7 @@ TreeNode * write_stmt(void) {
     TreeNode * t = newStmtNode(WriteK);
     if (t !=  NULL) {
         t->attr.op = WRITE;
+        match (WRITE);
         t->child[0] = exp();
     }
     return t;
@@ -113,8 +149,7 @@ TreeNode * exp(void){
      **/
     TreeNode * t = simple_exp();
     if ((token==LT)||(token==EQ)) {
-        // new一个node作后面的parent
-        TreeNode * p = newExpNode(OpK);
+        TreeNode * p = newExpNode(OpK); // 生成中间>/=节点
         if (p!=NULL) {
             p->child[0] = t;
             p->attr.op = token; 
@@ -128,14 +163,71 @@ TreeNode * exp(void){
 }
 
 TreeNode * simple_exp(void) {
+    /**
+     * simple->exp -> term
+     *              | term MINUS term
+     *              | term PLUS term
+     **/
+    TreeNode *t = term ();
+    if ((token == PLUS) || (token == MINUS)) {
+        TreeNode *p = newExpNode (OpK);
+        if (p != NULL) {
+            p->child[0] = t;
+            p->attr.op = token;
+            t = p;
+        }
+        match (token);
+        if (t != NULL)
+            t->child[1] = term ();
+    }
+    return t;
 }
 
 TreeNode * term(void) {
-
+    /**
+     * term -> factor
+     *      | factor TIMES factor
+     *      | factor MINUS factor
+     * */
+    TreeNode *t = factor ();
+    if ((token == TIMES) || (token == OVER)) {
+        TreeNode *p = newExpNode (OpK);
+        if (p != NULL) {
+            p->child[0] = t;
+            p->attr.op = token;
+            t = p;
+        }
+        match (token);
+        if (t != NULL)
+            t->child[1] = factor ();
+    }
+    return t;
 }
 
 TreeNode * factor(void) {
-
+    /**
+     * factor -> (exp) 
+     *          | ID 
+     *          | NUM
+     * */
+    TreeNode * t;
+    if (token == NUM) {
+        t = newExpNode (ConstK);
+        //t->attr.val = (int)(copyString(tokenString)); 
+        t->attr.val = atoi(copyString(tokenString)); 
+        match(token); // move forward
+    }
+    else if (token == ID) {
+        t = newExpNode (IdK);
+        t->attr.name = copyString (tokenString);
+        match(token); // move forward
+    }
+    else { // (exp)
+        match (LPAREN); // match "("
+        t = exp ();
+        match (REPEAT); // match ")"
+    }
+    return t;
 }
 
 /****************************************/
