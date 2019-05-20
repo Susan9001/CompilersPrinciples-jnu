@@ -11,8 +11,8 @@
 static TokenType token; /* holds current token */
 
 /* function prototypes for recursive calls */
-static TreeNode * stmt_sequence(void);
-static TreeNode * statement(void);
+static TreeNode * stmt_sequence(void); // demo 0
+static TreeNode * statement(void); // demo 2
 static TreeNode * if_stmt(void);
 static TreeNode * repeat_stmt(void);
 static TreeNode * assign_stmt(void);
@@ -35,6 +35,7 @@ static void match(TokenType expected) {
         syntaxError("unexpected token -> ");
         printToken(token,tokenString);
         fprintf(listing,"      ");
+        token = getToken (); // add by qxk;
     }
 }
 

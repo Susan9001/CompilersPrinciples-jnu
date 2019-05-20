@@ -3,13 +3,17 @@
   computes factorial
 }
 read x; { input an integer }
+{
+x :=; 
+:= 2;
+}
 if 0 < x then { don't compute if x <= 0 }
   fact := 1;
   repeat
     fact := fact * x;
     x := x - 1
-  until x = 0
-  write fact;  { output factorial of x }
+  until x = 0;
+  write fact { output factorial of x }
 end
 
 
