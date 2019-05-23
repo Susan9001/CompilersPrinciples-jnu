@@ -1,0 +1,5 @@
+Type something followed by Return. Type 'q' to end.
+
+3 * 20 = 60
+55 + 60 = 115, PLUS = 262
+expr = 115

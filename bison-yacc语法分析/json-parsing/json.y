@@ -1,0 +1,160 @@
+%{
+#include <stdio.h>
+#include <stdlib.h>
+#include "json.h"
+
+static int indentno = 0;
+#define INDENT indentno+=2
+#define UNINDENT indentno-=2
+
+static void printSpaces (void);
+void printTree (TreeNode *tree);
+
+
+extern "C" {
+    void yyerror (const char*s);
+    extern int yylex(void); // 好像也没有重写啊...
+}
+%}
+
+%union {
+    TreeNode* nodePtr; // yyval.nodePtr
+    // 以下三个是针对终结符的
+    char* str;
+    int num_bool;
+    double db;
+}
+
+%token BEGIN_OBJECT	 END_OBJECT	
+%token BEGIN_ARRAY	END_ARRAY	
+%token INT  FLOAT   STRING  BOOLEAN NULL
+%token SEP_COLON    SEP_COMMA	END_DOCUMENT
+
+
+%type<pNode> BEGIN_OBJECT	 END_OBJECT	
+%type<pNode> BEGIN_ARRAY	END_ARRAY	
+%type<pNode> INT  FLOAT   STRING  BOOLEAN   NULL
+%type<pNode> SEP_COLON    SEP_COMMA	END_DOCUMENT
+
+%type<pNode> start 
+%type<pNode> array elements
+%type<pNode> object members pair
+%type<pNode> value
+
+%%
+
+start: object END_DOCUMENT 
+     | array END_DOCUMENT {
+        $$ = newTreeNode (vnStart);
+        $$->child[0] = $1;
+     }  
+;
+object: BEGIN_OBJECT BEGIN_ARRAY {
+        $$ = newTreeNode (vnObj);
+      }
+      | BEGIN_OBJECT members BEGIN_ARRAY {
+        $$ = newTreeNode (vnObj);
+        $$->child[0] = $2; 
+      }
+;
+members: pair {
+        $$ = newTreeNode (vnPair);
+        $$->child[0] = $1;
+       }
+       | pair SEP_COMMA pair {
+        $$ = newTreeNode (vnPair);
+        $$->child[0] = $1;
+        $$->child[1] = $3;
+       }
+;
+array: BEGIN_ARRAY END_ARRAY {
+        $$ = newTreeNode (vnArr);
+     }
+     | BEGIN_ARRAY elements END_ARRAY {
+        $$ = newTreeNode (vnArr);
+        $$->child[0] = $2;
+     }
+;
+elements: value {
+            $$ = newTreeNode (vnElem);
+            $$->child[0] = $1;
+        }
+        | value SEP_COMMA elements {
+            $$ = newTreeNode (vnElem);
+            $$->child[0] = $1;
+            $$->sibling = $3;
+        }
+;
+pair: STRING SEP_COLON value {
+        $$ = newTreeNode (vnPair);     
+        $$->attr.str = copyString((char*)$1);
+        $$->child[0] = $3;
+    } 
+;
+value: INT {
+        $$ = newTreeNode (vnVal);     
+        $$->attr.num_bool = (int)$1;
+        $$.valkind = IntK;
+     }
+     | FLOAT {
+        $$ = newTreeNode (vnVal);     
+        $$->attr.num_bool = (double)$1;
+        $$.valkind = FloatK;
+     }
+     | STRING {
+        $$ = newTreeNode (vnVal); 
+        $$->attr.num_bool = copyString ((char*)$1);
+        $$.valkind = StrK;
+     }
+     | BOOLEAN {
+        $$ = newTreeNode (vnVal);     
+        $$->attr.num_bool = (int)$1;
+        $$.valkind = BoolK;
+     }
+     | NULL {
+        $$ = newTreeNode (vnVal); 
+        $$.valkind = StrK;
+     }
+     | object 
+     | array {
+        $$ = newTreeNode (vnVal); 
+        $$.child[0] = $1;
+     }
+;
+
+%%
+
+main() {
+    listing = fopen("result.txt", "w");
+    return (yyparse ());
+}
+
+yyerror(s)
+char *s; {
+    printf("yacc error: %s\n", s);
+}
+
+yywrap(){
+    return(0);
+}
+
+void printTree (TreeNode* tree) {
+    int i;
+    INDENT;
+    while (tree != NULL) {
+        printSpaces ();
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
