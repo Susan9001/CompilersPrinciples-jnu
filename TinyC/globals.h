@@ -32,7 +32,7 @@ typedef enum {
     ID,NUM,
     /* special symbols */
     ASSIGN,EQ,LT,PLUS,MINUS,TIMES,OVER,LPAREN,RPAREN,SEMI
-    /*:=  =    <   +  -      *      /  (       )     ;*/
+        /*:=  =    <   +  -      *      /  (       )     ;*/
 } TokenType;
 
 extern FILE* source; /* source code text file */
@@ -54,17 +54,18 @@ typedef enum {Void,Integer,Boolean} ExpType;
 
 #define MAXCHILDREN 3
 
-typedef struct treeNode
-   { struct treeNode * child[MAXCHILDREN];
-     struct treeNode * sibling;
-     int lineno;
-     NodeKind nodekind;
-     union { StmtKind stmt; ExpKind exp;} kind;
-     union { TokenType op;
-             int val;
-             char * name; } attr;
-     ExpType type; /* for type checking of exps */
-   } TreeNode;
+typedef struct treeNode {
+    struct treeNode * child[MAXCHILDREN];
+    struct treeNode * sibling;
+    int lineno;
+    NodeKind nodekind;
+    union { StmtKind stmt; ExpKind exp;} kind;
+    union { TokenType op;
+        int val;
+        char * name;
+    } attr;
+    ExpType type; /* for type checking of exps */
+} TreeNode;
 
 /**************************************************/
 /***********   Flags for tracing       ************/

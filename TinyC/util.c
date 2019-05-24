@@ -11,8 +11,8 @@
  * and its lexeme to the listing file
  */
 void printToken( TokenType token, const char* tokenString ) { 
-    switch (token)
-    { case IF:
+    switch (token) { 
+        case IF:
         case THEN:
         case ELSE:
         case END:
@@ -54,13 +54,14 @@ void printToken( TokenType token, const char* tokenString ) {
 /* Function newStmtNode creates a new statement
  * node for syntax tree construction
  */
-TreeNode * newStmtNode(StmtKind kind)
-{ TreeNode * t = (TreeNode *) malloc(sizeof(TreeNode));
+TreeNode * newStmtNode(StmtKind kind) { 
+    TreeNode * t = (TreeNode *) malloc(sizeof(TreeNode));
     int i;
     if (t==NULL)
         fprintf(listing,"Out of memory error at line %d\n",lineno);
     else {
-        for (i=0;i<MAXCHILDREN;i++) t->child[i] = NULL;
+        for (i=0;i<MAXCHILDREN;i++) 
+            t->child[i] = NULL;
         t->sibling = NULL;
         t->nodekind = StmtK;
         t->kind.stmt = kind;
@@ -92,7 +93,8 @@ TreeNode * newExpNode(ExpKind kind) {
  * copy of an existing string
  */
 char * copyString(char * s)
-{ int n;
+{ 
+    int n;
     char * t;
     if (s==NULL) return NULL;
     n = strlen(s)+1;

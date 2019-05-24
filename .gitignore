@@ -1,3 +1,7 @@
 *.sln
 *.o
 tinycc/
+bison-yacc语法分析/json-parsing/util*
+bison-yacc语法分析/json-parsing/globals*
+bison-yacc语法分析/json-parsing/parse*
+
