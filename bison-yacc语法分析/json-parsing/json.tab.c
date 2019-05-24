@@ -68,20 +68,12 @@
 #include <stdlib.h>
 #include "json.h"
 
-static int indentno = 0;
-#define INDENT indentno+=2
-#define UNINDENT indentno-=2
-
-static void printSpaces (void);
-void printTree (TreeNode *tree);
-
-
 extern "C" {
     void yyerror (const char*s);
     extern int yylex(void); // 好像也没有重写啊...
 }
 
-#line 85 "json.tab.c" /* yacc.c:339  */
+#line 77 "json.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -133,15 +125,16 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 20 "json.y" /* yacc.c:355  */
+#line 12 "json.y" /* yacc.c:355  */
 
-    TreeNode* nodePtr; // yyval.nodePtr
+    // 以下一个针对非终结符
+    TreeNode* nodePtr;
     // 以下三个是针对终结符的
     char* str;
     int num_bool;
     double db;
 
-#line 145 "json.tab.c" /* yacc.c:355  */
+#line 138 "json.tab.c" /* yacc.c:355  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -158,7 +151,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 162 "json.tab.c" /* yacc.c:358  */
+#line 155 "json.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -456,8 +449,8 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    46,    46,    47,    52,    55,    60,    64,    70,    73,
-      78,    82,    88,    94,    99,   104,   109,   114,   118,   119
+       0,    37,    37,    38,    43,    46,    51,    55,    61,    64,
+      69,    73,    79,    85,    90,    95,   100,   105,   109,   110
 };
 #endif
 
@@ -1243,156 +1236,156 @@ yyreduce:
   switch (yyn)
     {
         case 3:
-#line 47 "json.y" /* yacc.c:1646  */
+#line 38 "json.y" /* yacc.c:1646  */
     {
         (yyval.pNode) = newTreeNode (vnStart);
         (yyval.pNode)->child[0] = (yyvsp[-1].pNode);
      }
-#line 1252 "json.tab.c" /* yacc.c:1646  */
+#line 1245 "json.tab.c" /* yacc.c:1646  */
     break;
 
   case 4:
-#line 52 "json.y" /* yacc.c:1646  */
+#line 43 "json.y" /* yacc.c:1646  */
     {
         (yyval.pNode) = newTreeNode (vnObj);
       }
-#line 1260 "json.tab.c" /* yacc.c:1646  */
+#line 1253 "json.tab.c" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 55 "json.y" /* yacc.c:1646  */
+#line 46 "json.y" /* yacc.c:1646  */
     {
         (yyval.pNode) = newTreeNode (vnObj);
         (yyval.pNode)->child[0] = (yyvsp[-1].pNode); 
       }
-#line 1269 "json.tab.c" /* yacc.c:1646  */
+#line 1262 "json.tab.c" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 60 "json.y" /* yacc.c:1646  */
+#line 51 "json.y" /* yacc.c:1646  */
     {
         (yyval.pNode) = newTreeNode (vnPair);
         (yyval.pNode)->child[0] = (yyvsp[0].pNode);
        }
-#line 1278 "json.tab.c" /* yacc.c:1646  */
+#line 1271 "json.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 64 "json.y" /* yacc.c:1646  */
+#line 55 "json.y" /* yacc.c:1646  */
     {
         (yyval.pNode) = newTreeNode (vnPair);
         (yyval.pNode)->child[0] = (yyvsp[-2].pNode);
         (yyval.pNode)->child[1] = (yyvsp[0].pNode);
        }
-#line 1288 "json.tab.c" /* yacc.c:1646  */
+#line 1281 "json.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 70 "json.y" /* yacc.c:1646  */
+#line 61 "json.y" /* yacc.c:1646  */
     {
         (yyval.pNode) = newTreeNode (vnArr);
      }
-#line 1296 "json.tab.c" /* yacc.c:1646  */
+#line 1289 "json.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 73 "json.y" /* yacc.c:1646  */
+#line 64 "json.y" /* yacc.c:1646  */
     {
         (yyval.pNode) = newTreeNode (vnArr);
         (yyval.pNode)->child[0] = (yyvsp[-1].pNode);
      }
-#line 1305 "json.tab.c" /* yacc.c:1646  */
+#line 1298 "json.tab.c" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 78 "json.y" /* yacc.c:1646  */
+#line 69 "json.y" /* yacc.c:1646  */
     {
             (yyval.pNode) = newTreeNode (vnElem);
             (yyval.pNode)->child[0] = (yyvsp[0].pNode);
         }
-#line 1314 "json.tab.c" /* yacc.c:1646  */
+#line 1307 "json.tab.c" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 82 "json.y" /* yacc.c:1646  */
+#line 73 "json.y" /* yacc.c:1646  */
     {
             (yyval.pNode) = newTreeNode (vnElem);
             (yyval.pNode)->child[0] = (yyvsp[-2].pNode);
             (yyval.pNode)->sibling = (yyvsp[0].pNode);
         }
-#line 1324 "json.tab.c" /* yacc.c:1646  */
+#line 1317 "json.tab.c" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 88 "json.y" /* yacc.c:1646  */
+#line 79 "json.y" /* yacc.c:1646  */
     {
         (yyval.pNode) = newTreeNode (vnPair);     
-        (yyval.pNode)->attr.str = copyString((char*)(yyvsp[-2].pNode));
+        (yyval.pNode)->attr.str = copyString((char*)(yyvsp[-2].str));
         (yyval.pNode)->child[0] = (yyvsp[0].pNode);
     }
-#line 1334 "json.tab.c" /* yacc.c:1646  */
+#line 1327 "json.tab.c" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 94 "json.y" /* yacc.c:1646  */
+#line 85 "json.y" /* yacc.c:1646  */
     {
         (yyval.pNode) = newTreeNode (vnVal);     
-        (yyval.pNode)->attr.num_bool = (int)(yyvsp[0].pNode);
-        (yyval.pNode).valkind = IntK;
+        (yyval.pNode)->attr.num_bool = (int)(yyvsp[0].num_bool);
+        (yyval.pNode)->valkind = IntK;
      }
-#line 1344 "json.tab.c" /* yacc.c:1646  */
+#line 1337 "json.tab.c" /* yacc.c:1646  */
     break;
 
   case 14:
-#line 99 "json.y" /* yacc.c:1646  */
+#line 90 "json.y" /* yacc.c:1646  */
     {
         (yyval.pNode) = newTreeNode (vnVal);     
-        (yyval.pNode)->attr.num_bool = (double)(yyvsp[0].pNode);
-        (yyval.pNode).valkind = FloatK;
+        (yyval.pNode)->attr.num_bool = (double)(yyvsp[0].db);
+        (yyval.pNode)->valkind = FloatK;
      }
-#line 1354 "json.tab.c" /* yacc.c:1646  */
+#line 1347 "json.tab.c" /* yacc.c:1646  */
     break;
 
   case 15:
-#line 104 "json.y" /* yacc.c:1646  */
+#line 95 "json.y" /* yacc.c:1646  */
     {
         (yyval.pNode) = newTreeNode (vnVal); 
-        (yyval.pNode)->attr.num_bool = copyString ((char*)(yyvsp[0].pNode));
-        (yyval.pNode).valkind = StrK;
+        (yyval.pNode)->attr.num_bool = copyString ((char*)(yyvsp[0].str));
+        (yyval.pNode)->valkind = StrK;
      }
-#line 1364 "json.tab.c" /* yacc.c:1646  */
+#line 1357 "json.tab.c" /* yacc.c:1646  */
     break;
 
   case 16:
-#line 109 "json.y" /* yacc.c:1646  */
+#line 100 "json.y" /* yacc.c:1646  */
     {
         (yyval.pNode) = newTreeNode (vnVal);     
-        (yyval.pNode)->attr.num_bool = (int)(yyvsp[0].pNode);
-        (yyval.pNode).valkind = BoolK;
+        (yyval.pNode)->attr.num_bool = (int)(yyvsp[0].num_bool);
+        (yyval.pNode)->valkind = BoolK;
      }
-#line 1374 "json.tab.c" /* yacc.c:1646  */
+#line 1367 "json.tab.c" /* yacc.c:1646  */
     break;
 
   case 17:
-#line 114 "json.y" /* yacc.c:1646  */
+#line 105 "json.y" /* yacc.c:1646  */
     {
         (yyval.pNode) = newTreeNode (vnVal); 
-        (yyval.pNode).valkind = StrK;
+        (yyval.pNode)->valkind = NullK;
      }
-#line 1383 "json.tab.c" /* yacc.c:1646  */
+#line 1376 "json.tab.c" /* yacc.c:1646  */
     break;
 
   case 19:
-#line 119 "json.y" /* yacc.c:1646  */
+#line 110 "json.y" /* yacc.c:1646  */
     {
         (yyval.pNode) = newTreeNode (vnVal); 
-        (yyval.pNode).child[0] = (yyvsp[0].pNode);
+        (yyval.pNode)->child[0] = (yyvsp[0].pNode);
      }
-#line 1392 "json.tab.c" /* yacc.c:1646  */
+#line 1385 "json.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1396 "json.tab.c" /* yacc.c:1646  */
+#line 1389 "json.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1620,7 +1613,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 125 "json.y" /* yacc.c:1906  */
+#line 116 "json.y" /* yacc.c:1906  */
 
 
 main() {
@@ -1637,13 +1630,6 @@ yywrap(){
     return(0);
 }
 
-void printTree (TreeNode* tree) {
-    int i;
-    INDENT;
-    while (tree != NULL) {
-        printSpaces ();
-    }
-}
 
 
 

@@ -3,14 +3,6 @@
 #include <stdlib.h>
 #include "json.h"
 
-static int indentno = 0;
-#define INDENT indentno+=2
-#define UNINDENT indentno-=2
-
-static void printSpaces (void);
-void printTree (TreeNode *tree);
-
-
 extern "C" {
     void yyerror (const char*s);
     extern int yylex(void); // 好像也没有重写啊...
@@ -18,7 +10,8 @@ extern "C" {
 %}
 
 %union {
-    TreeNode* nodePtr; // yyval.nodePtr
+    // 以下一个针对非终结符
+    TreeNode* nodePtr;
     // 以下三个是针对终结符的
     char* str;
     int num_bool;
@@ -30,13 +23,11 @@ extern "C" {
 %token INT  FLOAT   STRING  BOOLEAN NULL
 %token SEP_COLON    SEP_COMMA	END_DOCUMENT
 
+%type<num_bool> INT  BOOLEAN
+%type<db> FLOAT 
+%type<str> STRING
 
-%type<pNode> BEGIN_OBJECT	 END_OBJECT	
-%type<pNode> BEGIN_ARRAY	END_ARRAY	
-%type<pNode> INT  FLOAT   STRING  BOOLEAN   NULL
-%type<pNode> SEP_COLON    SEP_COMMA	END_DOCUMENT
-
-%type<pNode> start 
+%type<pNode> start
 %type<pNode> array elements
 %type<pNode> object members pair
 %type<pNode> value
@@ -94,31 +85,31 @@ pair: STRING SEP_COLON value {
 value: INT {
         $$ = newTreeNode (vnVal);     
         $$->attr.num_bool = (int)$1;
-        $$.valkind = IntK;
+        $$->valkind = IntK;
      }
      | FLOAT {
         $$ = newTreeNode (vnVal);     
         $$->attr.num_bool = (double)$1;
-        $$.valkind = FloatK;
+        $$->valkind = FloatK;
      }
      | STRING {
         $$ = newTreeNode (vnVal); 
         $$->attr.num_bool = copyString ((char*)$1);
-        $$.valkind = StrK;
+        $$->valkind = StrK;
      }
      | BOOLEAN {
         $$ = newTreeNode (vnVal);     
         $$->attr.num_bool = (int)$1;
-        $$.valkind = BoolK;
+        $$->valkind = BoolK;
      }
      | NULL {
         $$ = newTreeNode (vnVal); 
-        $$.valkind = StrK;
+        $$->valkind = NullK;
      }
      | object 
      | array {
         $$ = newTreeNode (vnVal); 
-        $$.child[0] = $1;
+        $$->child[0] = $1;
      }
 ;
 
@@ -138,13 +129,6 @@ yywrap(){
     return(0);
 }
 
-void printTree (TreeNode* tree) {
-    int i;
-    INDENT;
-    while (tree != NULL) {
-        printSpaces ();
-    }
-}
 
 
 

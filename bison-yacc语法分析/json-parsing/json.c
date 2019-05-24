@@ -18,6 +18,21 @@ char * copyString(char * s) {
     return t;
 }
 
+int cmpStrIgnoreCase(char* s, char* t) {
+    int n, i;
+    if (s == NULL) {
+        if (t == NULL)
+            return TRUE;
+        return FALSE;
+    }
+    n = strlen(s) + 1;
+    for (i = 0; i < n; i++) {
+        if (tolower(s[i]) != tolower(t[i]))
+            return FALSE;
+    }
+    return TRUE;
+}
+
 TreeNode * newTreeNode (NodeKind kind) {
     TreeNode * t = (TreeNode *) malloc(sizeof(TreeNode));
     int i;
@@ -75,20 +90,21 @@ void printTree (TreeNode* tree) {
                 fprintf (listing, "--------PrintTree--------\n");
                 break;
             case vnObj:
-                fprintf (listing, "{"); // pair前才换行
+                fprintf (listing, "{\n"); 
                 break;
                 // 回退时再处理右括号
                 break;
             case vnArr:
-                fprintf (listing, "["); // elements前才换行
+                fprintf (listing, "[\n");
                 break;
                 // 回退时再处理右括号
             case vnMem:
                 break; // vnPair时再处理
             case vnElem:
-                fprintf (listing, "\n");
+                break;
             case vnPair:
-                fprintf (listing, "\n%s: ", tree->attr.str); // print key
+                fprintf (listing, "%s: ", tree->attr.str); // print key
+                INDENT; // 抵消掉缩进
                 break;
             default:
                 fprintf (listing, "Unexpected NodeKind~\n");

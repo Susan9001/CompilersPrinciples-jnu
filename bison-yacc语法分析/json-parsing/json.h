@@ -27,6 +27,8 @@ typedef struct _treeNode {
 } TreeNode;
 
 char * copyString (char* s);
+int cmpStrIgnoreCase(char* s, char* t);
+
 TreeNode* newTreeNode (NodeKind nodekind); // 词
 
 static int indentno = 0;

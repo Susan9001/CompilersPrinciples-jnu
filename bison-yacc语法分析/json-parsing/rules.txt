@@ -1,7 +1,7 @@
 1)start ->object END_DOCUMENT;
 2)start ->array END_DOCUMENT;
-3)object -> BEGIN_OBJECT START_OBJECT;
-4)object -> BEGIN_OBJECT members START_OBJECT;
+3)object -> BEGIN_OBJECT END_OBJECT;
+4)object -> BEGIN_OBJECT members END_OBJECT;
 5)members ->pair;
 6)members ->pair SEP_COMMA pair;
 7)array ->BEGIN_ARRAY END_ARRAY;
