@@ -5,6 +5,7 @@
 
 void yyerror(const char*s);
 TreeNode *root; // 从start开始...
+TreeNode *tmpRoot;
 %}
 
 %union {
@@ -16,7 +17,7 @@ TreeNode *root; // 从start开始...
     double db;
 }
 
-%token BEGIN_OBJECT	 END_OBJECT	
+%token BEGIN_OBJECT	 END_OBJECT END_DOCUMENT
 %token BEGIN_ARRAY	END_ARRAY	
 %token INT  FLOAT   STRING  BOOLEAN NULL_T
 %token SEP_COLON    SEP_COMMA	
@@ -30,58 +31,80 @@ TreeNode *root; // 从start开始...
 %type<pNode> array elements
 %type<pNode> object members pair
 %type<pNode> value
+%left END_DOCUMENT
 
 %%
 
-start: object 
-     | array {
-        printf ("start->obj\n");
+start: object END_DOCUMENT
+     | array END_DOCUMENT {
+        printf ("start->obj/arr\n");
         $$ = newTreeNode (vnStart);
         $$->child[0] = $1;
-        root = $$;
+        $1->parent = $$;
+        tmpRoot = $$;
      }  
 ;
 object: BEGIN_OBJECT END_OBJECT {
         $$ = newTreeNode (vnObj);
+        tmpRoot = $$;
       }
       | BEGIN_OBJECT members END_OBJECT {
+        // 找回members的头结点
+        TreeNode* p = $2;
+        while (p->forwardSib != NULL)
+            p = p->forwardSib;
         printf ("obj->members\n");
+        // 连起来
         $$ = newTreeNode (vnObj);
-        $$->child[0] = $2; 
+        $$->child[0] = p; 
+        p->parent = $$;
+        tmpRoot = $$;
       }
 ;
 members: pair {
         printf ("members->pair\n");
-        $$ = newTreeNode (vnPair);
+        $$ = newTreeNode (vnMem);
         $$->child[0] = $1;
+        $1->parent = $$;
        }
        | members SEP_COMMA pair {
         printf ("members->members , pair\n");
-        $$ = newTreeNode (vnPair);
-        $$->child[0] = $1;
-        $$->child[1] = $3;
+        $$ = newTreeNode (vnMem);
+        $1->sibling = $$;
+        $$->forwardSib = $1;
+        $$->child[0] = $3;
+        $3->parent = $$;
        }
 ;
 array: BEGIN_ARRAY END_ARRAY {
         printf ("array ->[ ]\n");
         $$ = newTreeNode (vnArr);
+        tmpRoot = $$;
      }
      | BEGIN_ARRAY elements END_ARRAY {
+        TreeNode *p = $2;
+        while (p->forwardSib != NULL) 
+            p = p->forwardSib;
         printf ("array ->[ elements ]\n");
         $$ = newTreeNode (vnArr);
-        $$->child[0] = $2;
+        $$->child[0] = p;
+        p->parent = $$;
+        tmpRoot = $$;
      }
 ;
 elements: value {
             printf ("elements -> value\n");
             $$ = newTreeNode (vnElem);
             $$->child[0] = $1;
+            $1->parent = $$;
         }
         | elements SEP_COMMA value {
             printf ("elements -> value , elements\n");
             $$ = newTreeNode (vnElem);
-            $$->child[0] = $1;
-            $$->sibling = $3;
+            $1->sibling = $$;
+            $$->forwardSib = $1;
+            $$->child[0] = $3;
+            $3->parent = $$;
         }
 ;
 pair: STRING SEP_COLON value {
@@ -89,6 +112,7 @@ pair: STRING SEP_COLON value {
         $$ = newTreeNode (vnPair);     
         $$->attr.str = copyString((char*)$1);
         $$->child[0] = $3;
+        $3->parent = $$;
     } 
 ;
 value: INT {
@@ -120,11 +144,19 @@ value: INT {
         $$ = newTreeNode (vnVal); 
         $$->valkind = NullK;
      }
-     | object 
-     | array {
-        printf ("value -> obj/arr\n");
+     | object  {
+        printf ("value -> object\n");
         $$ = newTreeNode (vnVal); 
         $$->child[0] = $1;
+        $1->parent = $$;
+        $$->valkind = ObjK;
+     }
+     | array {
+        printf ("value -> array\n");
+        $$ = newTreeNode (vnVal); 
+        $$->child[0] = $1;
+        $1->parent = $$;
+        $$->valkind = ArrK;
      }
 ;
 
@@ -132,6 +164,9 @@ value: INT {
 
 int main(int argc, char **argv) {
     yyparse();
+    root = newTreeNode (vnStart);
+    root->child[0] = tmpRoot;
+    printf ("\n-----Reconstruct from the Syntax Tree-----\n");
     printTree(root);
     return 0;
 }

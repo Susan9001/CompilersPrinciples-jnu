@@ -7,8 +7,8 @@ Grammar
 
     0 $accept: start $end
 
-    1 start: object
-    2      | array
+    1 start: object END_DOCUMENT
+    2      | array END_DOCUMENT
 
     3 object: BEGIN_OBJECT END_OBJECT
     4       | BEGIN_OBJECT members END_OBJECT
@@ -39,35 +39,36 @@ $end (0) 0
 error (256)
 BEGIN_OBJECT (258) 3 4
 END_OBJECT (259) 3 4
-BEGIN_ARRAY (260) 7 8
-END_ARRAY (261) 7 8
-INT (262) 12
-FLOAT (263) 13
-STRING (264) 11 14
-BOOLEAN (265) 15
-NULL_T (266) 16
-SEP_COLON (267) 11
-SEP_COMMA (268) 6 10
-SCAN_ERR (269)
+END_DOCUMENT (260) 1 2
+BEGIN_ARRAY (261) 7 8
+END_ARRAY (262) 7 8
+INT (263) 12
+FLOAT (264) 13
+STRING (265) 11 14
+BOOLEAN (266) 15
+NULL_T (267) 16
+SEP_COLON (268) 11
+SEP_COMMA (269) 6 10
+SCAN_ERR (270)
 
 
 Nonterminals, with rules where they appear
 
-$accept (15)
+$accept (16)
     on left: 0
-start (16)
+start (17)
     on left: 1 2, on right: 0
-object (17)
+object (18)
     on left: 3 4, on right: 1 17
-members (18)
+members (19)
     on left: 5 6, on right: 4 6
-array (19)
+array (20)
     on left: 7 8, on right: 2 18
-elements (20)
+elements (21)
     on left: 9 10, on right: 8 10
-pair (21)
+pair (22)
     on left: 11, on right: 5 6
-value (22)
+value (23)
     on left: 12 13 14 15 16 17 18, on right: 9 10 11
 
 
@@ -124,16 +125,16 @@ State 3
 
 State 4
 
-    1 start: object .
+    1 start: object . END_DOCUMENT
 
-    $default  reduce using rule 1 (start)
+    END_DOCUMENT  shift, and go to state 21
 
 
 State 5
 
-    2 start: array .
+    2 start: array . END_DOCUMENT
 
-    $default  reduce using rule 2 (start)
+    END_DOCUMENT  shift, and go to state 22
 
 
 State 6
@@ -147,7 +148,7 @@ State 7
 
    11 pair: STRING . SEP_COLON value
 
-    SEP_COLON  shift, and go to state 21
+    SEP_COLON  shift, and go to state 23
 
 
 State 8
@@ -155,8 +156,8 @@ State 8
     4 object: BEGIN_OBJECT members . END_OBJECT
     6 members: members . SEP_COMMA pair
 
-    END_OBJECT  shift, and go to state 22
-    SEP_COMMA   shift, and go to state 23
+    END_OBJECT  shift, and go to state 24
+    SEP_COMMA   shift, and go to state 25
 
 
 State 9
@@ -227,8 +228,8 @@ State 18
     8 array: BEGIN_ARRAY elements . END_ARRAY
    10 elements: elements . SEP_COMMA value
 
-    END_ARRAY  shift, and go to state 24
-    SEP_COMMA  shift, and go to state 25
+    END_ARRAY  shift, and go to state 26
+    SEP_COMMA  shift, and go to state 27
 
 
 State 19
@@ -247,47 +248,21 @@ State 20
 
 State 21
 
-   11 pair: STRING SEP_COLON . value
+    1 start: object END_DOCUMENT .
 
-    BEGIN_OBJECT  shift, and go to state 1
-    BEGIN_ARRAY   shift, and go to state 2
-    INT           shift, and go to state 11
-    FLOAT         shift, and go to state 12
-    STRING        shift, and go to state 13
-    BOOLEAN       shift, and go to state 14
-    NULL_T        shift, and go to state 15
-
-    object  go to state 16
-    array   go to state 17
-    value   go to state 26
+    $default  reduce using rule 1 (start)
 
 
 State 22
 
-    4 object: BEGIN_OBJECT members END_OBJECT .
+    2 start: array END_DOCUMENT .
 
-    $default  reduce using rule 4 (object)
+    $default  reduce using rule 2 (start)
 
 
 State 23
 
-    6 members: members SEP_COMMA . pair
-
-    STRING  shift, and go to state 7
-
-    pair  go to state 27
-
-
-State 24
-
-    8 array: BEGIN_ARRAY elements END_ARRAY .
-
-    $default  reduce using rule 8 (array)
-
-
-State 25
-
-   10 elements: elements SEP_COMMA . value
+   11 pair: STRING SEP_COLON . value
 
     BEGIN_OBJECT  shift, and go to state 1
     BEGIN_ARRAY   shift, and go to state 2
@@ -302,21 +277,61 @@ State 25
     value   go to state 28
 
 
+State 24
+
+    4 object: BEGIN_OBJECT members END_OBJECT .
+
+    $default  reduce using rule 4 (object)
+
+
+State 25
+
+    6 members: members SEP_COMMA . pair
+
+    STRING  shift, and go to state 7
+
+    pair  go to state 29
+
+
 State 26
+
+    8 array: BEGIN_ARRAY elements END_ARRAY .
+
+    $default  reduce using rule 8 (array)
+
+
+State 27
+
+   10 elements: elements SEP_COMMA . value
+
+    BEGIN_OBJECT  shift, and go to state 1
+    BEGIN_ARRAY   shift, and go to state 2
+    INT           shift, and go to state 11
+    FLOAT         shift, and go to state 12
+    STRING        shift, and go to state 13
+    BOOLEAN       shift, and go to state 14
+    NULL_T        shift, and go to state 15
+
+    object  go to state 16
+    array   go to state 17
+    value   go to state 30
+
+
+State 28
 
    11 pair: STRING SEP_COLON value .
 
     $default  reduce using rule 11 (pair)
 
 
-State 27
+State 29
 
     6 members: members SEP_COMMA pair .
 
     $default  reduce using rule 6 (members)
 
 
-State 28
+State 30
 
    10 elements: elements SEP_COMMA value .
 

@@ -1,405 +1,114 @@
 	BEGIN_OBJECT "{"
-	STRING ""nodes""
-	SEP_COLON ":"
-	BEGIN_ARRAY "["
-	BEGIN_OBJECT "{"
 	STRING ""uuid""
 	SEP_COLON ":"
-	STRING ""f3c6dab1-09f2-4111-bafc-b7ccf94c8ae6""
+	STRING ""abc""
 value -> STRING
 pair -> STRING : value
 members->pair
 	SEP_COMMA ","
-	STRING ""codeName""
-	SEP_COLON ":"
-	STRING ""dp_tensorflow_140_new""
-value -> STRING
-pair -> STRING : value
-members->members , pair
-	SEP_COMMA ","
-	STRING ""originAlgoName""
-	SEP_COLON ":"
-	STRING ""dp_tensorflow_140_new""
-value -> STRING
-pair -> STRING : value
-members->members , pair
-	SEP_COMMA ","
-	STRING ""originInstanceId""
-	SEP_COLON ":"
-	INT "1063486"
-value -> INT
-pair -> STRING : value
-members->members , pair
-	SEP_COMMA ","
-	STRING ""posX""
-	SEP_COLON ":"
-	INT "-183"
-value -> INT
-pair -> STRING : value
-members->members , pair
-	SEP_COMMA ","
-	STRING ""posY""
-	SEP_COLON ":"
-	INT "44"
-value -> INT
-pair -> STRING : value
-members->members , pair
-	SEP_COMMA ","
-	STRING ""isModel""
-	SEP_COLON ":"
-	BOOLEAN "false"
-value -> BOOLEAN
-pair -> STRING : value
-members->members , pair
-	SEP_COMMA ","
-	STRING ""params""
+	STRING ""listt""
 	SEP_COLON ":"
 	BEGIN_ARRAY "["
-	BEGIN_OBJECT "{"
-	STRING ""name""
-	SEP_COLON ":"
-	STRING ""buckets""
+	STRING ""list1""
 value -> STRING
-pair -> STRING : value
-members->pair
-	SEP_COMMA ","
-	STRING ""value""
-	SEP_COLON ":"
-	STRING ""oss://image-completion.oss-cn-beijing-internal.aliyuncs.com/""
-value -> STRING
-pair -> STRING : value
-members->members , pair
-	END_OBJECT "}"
-obj->members
 elements -> value
 	SEP_COMMA ","
-	BEGIN_OBJECT "{"
-	STRING ""name""
-	SEP_COLON ":"
-	STRING ""entryFile""
+	STRING ""list2""
 value -> STRING
-pair -> STRING : value
-members->pair
-	SEP_COMMA ","
-	STRING ""value""
-	SEP_COLON ":"
-	STRING ""train.py""
-value -> STRING
-pair -> STRING : value
-members->members , pair
-	END_OBJECT "}"
-obj->members
 elements -> value , elements
 	SEP_COMMA ","
 	BEGIN_OBJECT "{"
 	STRING ""name""
 	SEP_COLON ":"
-	STRING ""maxTrainingTimeInHour""
+	STRING ""buck""
 value -> STRING
 pair -> STRING : value
 members->pair
 	SEP_COMMA ","
-	STRING ""value""
+	STRING ""val""
 	SEP_COLON ":"
-	STRING ""24""
-value -> STRING
+	FLOAT "192.110000"
+value -> FLOAT
 pair -> STRING : value
 members->members , pair
 	END_OBJECT "}"
 obj->members
+value -> object
+elements -> value , elements
+	SEP_COMMA ","
+	STRING ""list4""
+value -> STRING
 elements -> value , elements
 	SEP_COMMA ","
 	BEGIN_OBJECT "{"
-	STRING ""name""
+	STRING ""name2""
 	SEP_COLON ":"
-	STRING ""singleOrDistribute""
+	BEGIN_ARRAY "["
+	STRING ""cc""
 value -> STRING
-pair -> STRING : value
-members->pair
-	SEP_COMMA ","
-	STRING ""value""
-	SEP_COLON ":"
-	STRING ""single""
-value -> STRING
-pair -> STRING : value
-members->members , pair
-	END_OBJECT "}"
-obj->members
-elements -> value , elements
-	SEP_COMMA ","
-	BEGIN_OBJECT "{"
-	STRING ""name""
-	SEP_COLON ":"
-	STRING ""script""
-value -> STRING
-pair -> STRING : value
-members->pair
-	SEP_COMMA ","
-	STRING ""value""
-	SEP_COLON ":"
-	STRING ""oss://image-completion.oss-cn-beijing-internal.aliyuncs.com/network.pyc""
-value -> STRING
-pair -> STRING : value
-members->members , pair
-	END_OBJECT "}"
-obj->members
-elements -> value , elements
-	SEP_COMMA ","
-	BEGIN_OBJECT "{"
-	STRING ""name""
-	SEP_COLON ":"
-	STRING ""__extend""
-value -> STRING
-pair -> STRING : value
-members->pair
-	SEP_COMMA ","
-	STRING ""value""
-	SEP_COLON ":"
-	STRING ""{\"needGPU\":true}""
-value -> STRING
-pair -> STRING : value
-members->members , pair
-	END_OBJECT "}"
-obj->members
-elements -> value , elements
-	SEP_COMMA ","
-	BEGIN_OBJECT "{"
-	STRING ""name""
-	SEP_COLON ":"
-	STRING ""workerCount""
-value -> STRING
-pair -> STRING : value
-members->pair
-	SEP_COMMA ","
-	STRING ""value""
-	SEP_COLON ":"
-	STRING ""2""
-value -> STRING
-pair -> STRING : value
-members->members , pair
-	END_OBJECT "}"
-obj->members
-elements -> value , elements
-	SEP_COMMA ","
-	BEGIN_OBJECT "{"
-	STRING ""name""
-	SEP_COLON ":"
-	STRING ""confirmLimitHour""
-value -> STRING
-pair -> STRING : value
-members->pair
-	SEP_COMMA ","
-	STRING ""value""
-	SEP_COLON ":"
-	STRING ""true""
-value -> STRING
-pair -> STRING : value
-members->members , pair
-	END_OBJECT "}"
-obj->members
-elements -> value , elements
-	SEP_COMMA ","
-	BEGIN_OBJECT "{"
-	STRING ""name""
-	SEP_COLON ":"
-	STRING ""hyperParameters""
-value -> STRING
-pair -> STRING : value
-members->pair
-	SEP_COMMA ","
-	STRING ""value""
-	SEP_COLON ":"
-	STRING ""oss://image-completion.oss-cn-beijing-internal.aliyuncs.com/在线超参数.txt""
-value -> STRING
-pair -> STRING : value
-members->members , pair
-	END_OBJECT "}"
-obj->members
-elements -> value , elements
-	SEP_COMMA ","
-	BEGIN_OBJECT "{"
-	STRING ""name""
-	SEP_COLON ":"
-	STRING ""psCount""
-value -> STRING
-pair -> STRING : value
-members->pair
-	SEP_COMMA ","
-	STRING ""value""
-	SEP_COLON ":"
-	STRING ""1""
-value -> STRING
-pair -> STRING : value
-members->members , pair
-	END_OBJECT "}"
-obj->members
-elements -> value , elements
-	SEP_COMMA ","
-	BEGIN_OBJECT "{"
-	STRING ""name""
-	SEP_COLON ":"
-	STRING ""gpuRequired""
-value -> STRING
-pair -> STRING : value
-members->pair
-	SEP_COMMA ","
-	STRING ""value""
-	SEP_COLON ":"
-	STRING ""1""
-value -> STRING
-pair -> STRING : value
-members->members , pair
-	END_OBJECT "}"
-obj->members
-elements -> value , elements
-	SEP_COMMA ","
-	BEGIN_OBJECT "{"
-	STRING ""name""
-	SEP_COLON ":"
-	STRING ""workerGPU""
-value -> STRING
-pair -> STRING : value
-members->pair
-	SEP_COMMA ","
-	STRING ""value""
-	SEP_COLON ":"
-	STRING ""1""
-value -> STRING
-pair -> STRING : value
-members->members , pair
-	END_OBJECT "}"
-obj->members
-elements -> value , elements
-	SEP_COMMA ","
-	BEGIN_OBJECT "{"
-	STRING ""name""
-	SEP_COLON ":"
-	STRING ""checkpointDir""
-value -> STRING
-pair -> STRING : value
-members->pair
-	SEP_COMMA ","
-	STRING ""value""
-	SEP_COLON ":"
-	STRING ""oss://image-completion.oss-cn-beijing-internal.aliyuncs.com/checkpoints/""
-value -> STRING
-pair -> STRING : value
-members->members , pair
-	END_OBJECT "}"
-obj->members
-elements -> value , elements
-	END_ARRAY "["
-array ->[ elements ]
-value -> obj/arr
-pair -> STRING : value
-members->members , pair
-	END_OBJECT "}"
-obj->members
 elements -> value
 	END_ARRAY "["
 array ->[ elements ]
-value -> obj/arr
+value -> array
 pair -> STRING : value
 members->pair
 	SEP_COMMA ","
-	STRING ""links""
+	STRING ""val2""
 	SEP_COLON ":"
-	BEGIN_ARRAY "["
-	END_ARRAY "["
-array ->[ ]
-value -> obj/arr
-pair -> STRING : value
-members->members , pair
-	SEP_COMMA ","
-	STRING ""name""
-	SEP_COLON ":"
-	STRING ""ImageCompletion-TrainFromStart""
-value -> STRING
-pair -> STRING : value
-members->members , pair
-	SEP_COMMA ","
-	STRING ""description""
-	SEP_COLON ":"
-	STRING """"
-value -> STRING
-pair -> STRING : value
-members->members , pair
-	SEP_COMMA ","
-	STRING ""owner""
-	SEP_COLON ":"
-	STRING ""1037046788500406""
-value -> STRING
-pair -> STRING : value
-members->members , pair
-	SEP_COMMA ","
-	STRING ""version""
-	SEP_COLON ":"
-	STRING ""v2.0""
-value -> STRING
-pair -> STRING : value
-members->members , pair
-	SEP_COMMA ","
-	STRING ""region""
-	SEP_COLON ":"
-	STRING ""cn-beijing""
-value -> STRING
-pair -> STRING : value
-members->members , pair
-	SEP_COMMA ","
-	STRING ""projectId""
-	SEP_COLON ":"
-	INT "59571"
+	INT "9394"
 value -> INT
-pair -> STRING : value
-members->members , pair
-	SEP_COMMA ","
-	STRING ""exportTime""
-	SEP_COLON ":"
-	STRING ""May 21, 2019 10:38:46 PM""
-value -> STRING
-pair -> STRING : value
-members->members , pair
-	SEP_COMMA ","
-	STRING ""sourceExperimentId""
-	SEP_COLON ":"
-	INT "81268"
-value -> INT
-pair -> STRING : value
-members->members , pair
-	SEP_COMMA ","
-	STRING ""inputTables""
-	SEP_COLON ":"
-	BEGIN_OBJECT "{"
-	END_OBJECT "}"
-pair -> STRING : value
-members->members , pair
-	SEP_COMMA ","
-	STRING ""containsGpuAlgo""
-	SEP_COLON ":"
-	BOOLEAN "true"
-value -> BOOLEAN
-pair -> STRING : value
-members->members , pair
-	SEP_COMMA ","
-	STRING ""automl""
-	SEP_COLON ":"
-	BEGIN_OBJECT "{"
-	END_OBJECT "}"
-pair -> STRING : value
-members->members , pair
-	SEP_COMMA ","
-	STRING ""absolutePosition""
-	SEP_COLON ":"
-	BOOLEAN "true"
-value -> BOOLEAN
-pair -> STRING : value
-members->members , pair
-	SEP_COMMA ","
-	STRING ""sign""
-	SEP_COLON ":"
-	STRING ""674ac0187ed29501e7dea895d3268929""
-value -> STRING
 pair -> STRING : value
 members->members , pair
 	END_OBJECT "}"
 obj->members
+value -> object
+elements -> value , elements
+	SEP_COMMA ","
+	STRING ""list5""
+value -> STRING
+elements -> value , elements
+	END_ARRAY "["
+array ->[ elements ]
+value -> array
+pair -> STRING : value
+members->members , pair
+	SEP_COMMA ","
+	STRING ""codeN""
+	SEP_COLON ":"
+	INT "233"
+value -> INT
+pair -> STRING : value
+members->members , pair
+	SEP_COMMA ","
+	STRING ""endM""
+	SEP_COLON ":"
+	FLOAT "0.888000"
+value -> FLOAT
+pair -> STRING : value
+members->members , pair
+	END_OBJECT "}"
+obj->members
+	 EOF~
+
+-----Reconstruct from the Syntax Tree-----
+{
+    "uuid": "abc"
+    "listt":   [
+        "list1"
+        "list2"
+         {
+            "name": "buck"
+            "val": 0.000000
+    }
+        "list4"
+         {
+            "name2":       [
+                "cc"
+      ]
+            "val2": 9394
+    }
+        "list5"
+  ]
+    "codeN": 233
+    "endM": 0.000000
+}

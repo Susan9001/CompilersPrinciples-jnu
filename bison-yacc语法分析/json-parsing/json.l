@@ -13,6 +13,7 @@ string [\"](\\\"|[^"])*[\"]
 boolean false|true|FALSE|TRUE|False|True
 null null|NULL|Null
 space [ \t\n\r]+
+end_doc [#]
 
 %%
 
@@ -79,6 +80,10 @@ space [ \t\n\r]+
         if(ch=='/') done=1;
     }while(!done);
 } 
+{end_doc} {
+    fprintf(yyout, "\t EOF~\n");
+    return END_DOCUMENT;
+}
 . { // for error
     fprintf (yyout, "--- 我是谁 \"%s\"---\n", yytext);
     return SCAN_ERR;

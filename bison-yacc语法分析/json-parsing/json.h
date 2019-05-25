@@ -15,8 +15,10 @@ typedef enum {IntK, FloatK, StrK, BoolK, NullK, ObjK, ArrK} ValKind;
 #define MAXCHILDREN 3
 
 typedef struct _treeNode {
+    struct _treeNode * parent;
     struct _treeNode * child[MAXCHILDREN];
     struct _treeNode * sibling;
+    struct _treeNode * forwardSib; // 回去的
     NodeKind nodekind; // 节点kind
     ValKind valkind; // 如果kind == value的话，此处有效
     union { // value
@@ -34,9 +36,11 @@ TreeNode* newTreeNode (NodeKind nodekind); // 词
 static int indentno = 0;
 #define INDENT indentno+=2
 #define UNINDENT indentno-=2
+static void printSpaces (void);
+void printSpecificSpace(int num);
 
 void printTree (TreeNode *tree);
-
+void cancelIndent(int num);
 
 #endif
 
