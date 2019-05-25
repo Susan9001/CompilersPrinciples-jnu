@@ -1,0 +1,37 @@
+In file included from json.l:2:0:
+json.y:16:5: error: ‘TreeNode’ does not name a type
+     TreeNode* pNode;
+     ^
+json.l: In function ‘int yylex()’:
+json.l:21:12: error: ‘YYSTYPE’ has no member named ‘pNode’
+     yylval.pNode = NULL;
+            ^
+json.l:26:12: error: ‘YYSTYPE’ has no member named ‘pNode’
+     yylval.pNode = NULL;
+            ^
+json.l:31:12: error: ‘YYSTYPE’ has no member named ‘pNode’
+     yylval.pNode = NULL;
+            ^
+json.l:36:12: error: ‘YYSTYPE’ has no member named ‘pNode’
+     yylval.pNode = NULL;
+            ^
+json.l:41:12: error: ‘YYSTYPE’ has no member named ‘pNode’
+     yylval.pNode = NULL;
+            ^
+json.l:47:12: error: ‘YYSTYPE’ has no member named ‘pNode’
+     yylval.pNode = NULL;
+            ^
+json.l:63:36: error: ‘copystring’ was not declared in this scope
+     yylval.str = copystring (yytext); // for value->string
+                                    ^
+json.l:68:49: error: ‘cmpstrignorecase’ was not declared in this scope
+     int istrue = cmpstrignorecase(yytext, "true"); // in json.h/c
+                                                 ^
+json.l:84:25: error: ‘input’ was not declared in this scope
+         while((ch=input())!='*' && ch != '\0');
+                         ^
+json.l:85:25: error: ‘input’ was not declared in this scope
+         while((ch=input())=='*' && ch != '\0');
+                         ^
+make: *** [json_l.o] Error 1
+myRun.sh: line 6: $1: ambiguous redirect

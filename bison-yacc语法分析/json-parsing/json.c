@@ -4,8 +4,6 @@
 #include <string.h>
 #include "json.h"
 
-FILE * listing; // output. declared in func main, "json.y" 
-
 char * copyString(char * s) { 
     int n;
     char * t;
@@ -87,7 +85,7 @@ void printTree (TreeNode* tree) {
                         fprintf (listing, "Unexpected ValKind~\n");
                 } 
             case vnStart:
-                fprintf (listing, "--------PrintTree--------\n");
+                fprintf (listing, "--------JsonTree--------\n");
                 break;
             case vnObj:
                 fprintf (listing, "{\n"); 

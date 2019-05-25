@@ -1,1 +1,0 @@
-../../TinyC/globals.h

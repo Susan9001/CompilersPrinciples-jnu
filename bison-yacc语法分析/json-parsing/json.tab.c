@@ -73,7 +73,9 @@ extern "C" {
     extern int yylex(void); // 好像也没有重写啊...
 }
 
-#line 77 "json.tab.c" /* yacc.c:339  */
+TreeNode *root; // 从start开始...
+
+#line 79 "json.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -113,10 +115,11 @@ extern int yydebug;
     FLOAT = 263,
     STRING = 264,
     BOOLEAN = 265,
-    NULL = 266,
+    NULL_T = 266,
     SEP_COLON = 267,
     SEP_COMMA = 268,
-    END_DOCUMENT = 269
+    END_DOCUMENT = 269,
+    SCAN_ERR = 270
   };
 #endif
 
@@ -125,16 +128,16 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 12 "json.y" /* yacc.c:355  */
+#line 14 "json.y" /* yacc.c:355  */
 
     // 以下一个针对非终结符
-    TreeNode* nodePtr;
+    TreeNode* pNode;
     // 以下三个是针对终结符的
     char* str;
     int num_bool;
     double db;
 
-#line 138 "json.tab.c" /* yacc.c:355  */
+#line 141 "json.tab.c" /* yacc.c:355  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -151,7 +154,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 155 "json.tab.c" /* yacc.c:358  */
+#line 158 "json.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -396,7 +399,7 @@ union yyalloc
 #define YYLAST   38
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  15
+#define YYNTOKENS  16
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  8
 /* YYNRULES -- Number of rules.  */
@@ -407,7 +410,7 @@ union yyalloc
 /* YYTRANSLATE[YYX] -- Symbol number corresponding to YYX as returned
    by yylex, with out-of-bounds checking.  */
 #define YYUNDEFTOK  2
-#define YYMAXUTOK   269
+#define YYMAXUTOK   270
 
 #define YYTRANSLATE(YYX)                                                \
   ((unsigned int) (YYX) <= YYMAXUTOK ? yytranslate[YYX] : YYUNDEFTOK)
@@ -442,15 +445,16 @@ static const yytype_uint8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
-       5,     6,     7,     8,     9,    10,    11,    12,    13,    14
+       5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
+      15
 };
 
 #if YYDEBUG
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    37,    37,    38,    43,    46,    51,    55,    61,    64,
-      69,    73,    79,    85,    90,    95,   100,   105,   109,   110
+       0,    40,    40,    41,    47,    50,    55,    59,    65,    68,
+      73,    77,    83,    89,    94,    99,   104,   109,   113,   114
 };
 #endif
 
@@ -460,9 +464,10 @@ static const yytype_uint8 yyrline[] =
 static const char *const yytname[] =
 {
   "$end", "error", "$undefined", "BEGIN_OBJECT", "END_OBJECT",
-  "BEGIN_ARRAY", "END_ARRAY", "INT", "FLOAT", "STRING", "BOOLEAN", "NULL",
-  "SEP_COLON", "SEP_COMMA", "END_DOCUMENT", "$accept", "start", "object",
-  "members", "array", "elements", "pair", "value", YY_NULLPTR
+  "BEGIN_ARRAY", "END_ARRAY", "INT", "FLOAT", "STRING", "BOOLEAN",
+  "NULL_T", "SEP_COLON", "SEP_COMMA", "END_DOCUMENT", "SCAN_ERR",
+  "$accept", "start", "object", "members", "array", "elements", "pair",
+  "value", YY_NULLPTR
 };
 #endif
 
@@ -472,7 +477,7 @@ static const char *const yytname[] =
 static const yytype_uint16 yytoknum[] =
 {
        0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
-     265,   266,   267,   268,   269
+     265,   266,   267,   268,   269,   270
 };
 # endif
 
@@ -542,17 +547,17 @@ static const yytype_int8 yycheck[] =
      symbol of state STATE-NUM.  */
 static const yytype_uint8 yystos[] =
 {
-       0,     3,     5,    16,    17,    19,     5,     9,    18,    21,
-       6,     7,     8,     9,    10,    11,    17,    19,    20,    22,
-       0,    14,    14,    12,     5,    13,     6,    13,    22,    21,
-      20
+       0,     3,     5,    17,    18,    20,     5,     9,    19,    22,
+       6,     7,     8,     9,    10,    11,    18,    20,    21,    23,
+       0,    14,    14,    12,     5,    13,     6,    13,    23,    22,
+      21
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_uint8 yyr1[] =
 {
-       0,    15,    16,    16,    17,    17,    18,    18,    19,    19,
-      20,    20,    21,    22,    22,    22,    22,    22,    22,    22
+       0,    16,    17,    17,    18,    18,    19,    19,    20,    20,
+      21,    21,    22,    23,    23,    23,    23,    23,    23,    23
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
@@ -1236,156 +1241,157 @@ yyreduce:
   switch (yyn)
     {
         case 3:
-#line 38 "json.y" /* yacc.c:1646  */
+#line 41 "json.y" /* yacc.c:1646  */
     {
         (yyval.pNode) = newTreeNode (vnStart);
         (yyval.pNode)->child[0] = (yyvsp[-1].pNode);
+        root = (yyval.pNode);
      }
-#line 1245 "json.tab.c" /* yacc.c:1646  */
+#line 1251 "json.tab.c" /* yacc.c:1646  */
     break;
 
   case 4:
-#line 43 "json.y" /* yacc.c:1646  */
+#line 47 "json.y" /* yacc.c:1646  */
     {
         (yyval.pNode) = newTreeNode (vnObj);
       }
-#line 1253 "json.tab.c" /* yacc.c:1646  */
+#line 1259 "json.tab.c" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 46 "json.y" /* yacc.c:1646  */
+#line 50 "json.y" /* yacc.c:1646  */
     {
         (yyval.pNode) = newTreeNode (vnObj);
         (yyval.pNode)->child[0] = (yyvsp[-1].pNode); 
       }
-#line 1262 "json.tab.c" /* yacc.c:1646  */
+#line 1268 "json.tab.c" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 51 "json.y" /* yacc.c:1646  */
+#line 55 "json.y" /* yacc.c:1646  */
     {
         (yyval.pNode) = newTreeNode (vnPair);
         (yyval.pNode)->child[0] = (yyvsp[0].pNode);
        }
-#line 1271 "json.tab.c" /* yacc.c:1646  */
+#line 1277 "json.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 55 "json.y" /* yacc.c:1646  */
+#line 59 "json.y" /* yacc.c:1646  */
     {
         (yyval.pNode) = newTreeNode (vnPair);
         (yyval.pNode)->child[0] = (yyvsp[-2].pNode);
         (yyval.pNode)->child[1] = (yyvsp[0].pNode);
        }
-#line 1281 "json.tab.c" /* yacc.c:1646  */
+#line 1287 "json.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 61 "json.y" /* yacc.c:1646  */
+#line 65 "json.y" /* yacc.c:1646  */
     {
         (yyval.pNode) = newTreeNode (vnArr);
      }
-#line 1289 "json.tab.c" /* yacc.c:1646  */
+#line 1295 "json.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 64 "json.y" /* yacc.c:1646  */
+#line 68 "json.y" /* yacc.c:1646  */
     {
         (yyval.pNode) = newTreeNode (vnArr);
         (yyval.pNode)->child[0] = (yyvsp[-1].pNode);
      }
-#line 1298 "json.tab.c" /* yacc.c:1646  */
+#line 1304 "json.tab.c" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 69 "json.y" /* yacc.c:1646  */
+#line 73 "json.y" /* yacc.c:1646  */
     {
             (yyval.pNode) = newTreeNode (vnElem);
             (yyval.pNode)->child[0] = (yyvsp[0].pNode);
         }
-#line 1307 "json.tab.c" /* yacc.c:1646  */
+#line 1313 "json.tab.c" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 73 "json.y" /* yacc.c:1646  */
+#line 77 "json.y" /* yacc.c:1646  */
     {
             (yyval.pNode) = newTreeNode (vnElem);
             (yyval.pNode)->child[0] = (yyvsp[-2].pNode);
             (yyval.pNode)->sibling = (yyvsp[0].pNode);
         }
-#line 1317 "json.tab.c" /* yacc.c:1646  */
+#line 1323 "json.tab.c" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 79 "json.y" /* yacc.c:1646  */
+#line 83 "json.y" /* yacc.c:1646  */
     {
         (yyval.pNode) = newTreeNode (vnPair);     
         (yyval.pNode)->attr.str = copyString((char*)(yyvsp[-2].str));
         (yyval.pNode)->child[0] = (yyvsp[0].pNode);
     }
-#line 1327 "json.tab.c" /* yacc.c:1646  */
+#line 1333 "json.tab.c" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 85 "json.y" /* yacc.c:1646  */
+#line 89 "json.y" /* yacc.c:1646  */
     {
         (yyval.pNode) = newTreeNode (vnVal);     
         (yyval.pNode)->attr.num_bool = (int)(yyvsp[0].num_bool);
         (yyval.pNode)->valkind = IntK;
      }
-#line 1337 "json.tab.c" /* yacc.c:1646  */
+#line 1343 "json.tab.c" /* yacc.c:1646  */
     break;
 
   case 14:
-#line 90 "json.y" /* yacc.c:1646  */
+#line 94 "json.y" /* yacc.c:1646  */
     {
         (yyval.pNode) = newTreeNode (vnVal);     
         (yyval.pNode)->attr.num_bool = (double)(yyvsp[0].db);
         (yyval.pNode)->valkind = FloatK;
      }
-#line 1347 "json.tab.c" /* yacc.c:1646  */
+#line 1353 "json.tab.c" /* yacc.c:1646  */
     break;
 
   case 15:
-#line 95 "json.y" /* yacc.c:1646  */
+#line 99 "json.y" /* yacc.c:1646  */
     {
         (yyval.pNode) = newTreeNode (vnVal); 
-        (yyval.pNode)->attr.num_bool = copyString ((char*)(yyvsp[0].str));
+        (yyval.pNode)->attr.str = copyString ((char*)(yyvsp[0].str));
         (yyval.pNode)->valkind = StrK;
      }
-#line 1357 "json.tab.c" /* yacc.c:1646  */
+#line 1363 "json.tab.c" /* yacc.c:1646  */
     break;
 
   case 16:
-#line 100 "json.y" /* yacc.c:1646  */
+#line 104 "json.y" /* yacc.c:1646  */
     {
         (yyval.pNode) = newTreeNode (vnVal);     
         (yyval.pNode)->attr.num_bool = (int)(yyvsp[0].num_bool);
         (yyval.pNode)->valkind = BoolK;
      }
-#line 1367 "json.tab.c" /* yacc.c:1646  */
+#line 1373 "json.tab.c" /* yacc.c:1646  */
     break;
 
   case 17:
-#line 105 "json.y" /* yacc.c:1646  */
+#line 109 "json.y" /* yacc.c:1646  */
     {
         (yyval.pNode) = newTreeNode (vnVal); 
         (yyval.pNode)->valkind = NullK;
      }
-#line 1376 "json.tab.c" /* yacc.c:1646  */
+#line 1382 "json.tab.c" /* yacc.c:1646  */
     break;
 
   case 19:
-#line 110 "json.y" /* yacc.c:1646  */
+#line 114 "json.y" /* yacc.c:1646  */
     {
         (yyval.pNode) = newTreeNode (vnVal); 
         (yyval.pNode)->child[0] = (yyvsp[0].pNode);
      }
-#line 1385 "json.tab.c" /* yacc.c:1646  */
+#line 1391 "json.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1389 "json.tab.c" /* yacc.c:1646  */
+#line 1395 "json.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1613,21 +1619,22 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 116 "json.y" /* yacc.c:1906  */
+#line 120 "json.y" /* yacc.c:1906  */
 
 
-main() {
-    listing = fopen("result.txt", "w");
-    return (yyparse ());
+int main(int argc, char **argv) {
+    listing = stdout;
+    yyparse();
+    printTree(root);
+    return 0;
 }
 
-yyerror(s)
-char *s; {
+void yyerror(const char*s) {
     printf("yacc error: %s\n", s);
 }
 
-yywrap(){
-    return(0);
+int yywrap() {
+    return 0;
 }
 
 

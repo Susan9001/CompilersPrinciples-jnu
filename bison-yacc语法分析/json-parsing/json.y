@@ -7,11 +7,13 @@ extern "C" {
     void yyerror (const char*s);
     extern int yylex(void); // 好像也没有重写啊...
 }
+
+TreeNode *root; // 从start开始...
 %}
 
 %union {
     // 以下一个针对非终结符
-    TreeNode* nodePtr;
+    TreeNode* pNode;
     // 以下三个是针对终结符的
     char* str;
     int num_bool;
@@ -20,8 +22,9 @@ extern "C" {
 
 %token BEGIN_OBJECT	 END_OBJECT	
 %token BEGIN_ARRAY	END_ARRAY	
-%token INT  FLOAT   STRING  BOOLEAN NULL
+%token INT  FLOAT   STRING  BOOLEAN NULL_T
 %token SEP_COLON    SEP_COMMA	END_DOCUMENT
+%token SCAN_ERR
 
 %type<num_bool> INT  BOOLEAN
 %type<db> FLOAT 
@@ -38,6 +41,7 @@ start: object END_DOCUMENT
      | array END_DOCUMENT {
         $$ = newTreeNode (vnStart);
         $$->child[0] = $1;
+        root = $$;
      }  
 ;
 object: BEGIN_OBJECT BEGIN_ARRAY {
@@ -94,7 +98,7 @@ value: INT {
      }
      | STRING {
         $$ = newTreeNode (vnVal); 
-        $$->attr.num_bool = copyString ((char*)$1);
+        $$->attr.str = copyString ((char*)$1);
         $$->valkind = StrK;
      }
      | BOOLEAN {
@@ -102,7 +106,7 @@ value: INT {
         $$->attr.num_bool = (int)$1;
         $$->valkind = BoolK;
      }
-     | NULL {
+     | NULL_T {
         $$ = newTreeNode (vnVal); 
         $$->valkind = NullK;
      }
@@ -115,18 +119,19 @@ value: INT {
 
 %%
 
-main() {
-    listing = fopen("result.txt", "w");
-    return (yyparse ());
+int main(int argc, char **argv) {
+    listing = stdout;
+    yyparse();
+    printTree(root);
+    return 0;
 }
 
-yyerror(s)
-char *s; {
+void yyerror(const char*s) {
     printf("yacc error: %s\n", s);
 }
 
-yywrap(){
-    return(0);
+int yywrap() {
+    return 0;
 }
 
 
