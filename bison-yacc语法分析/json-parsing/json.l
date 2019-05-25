@@ -1,10 +1,9 @@
 %{
-#include "json.tab.h"
 #include "json.h"
+#include "json.tab.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <ctype.h>
-extern "C" { int yylex(void); }
 %}
 
 digit [0-9]
@@ -60,12 +59,12 @@ space [ \t\n\r]+
     return FLOAT;
 }
 {string} {
-    yylval.str = copystring (yytext); // for value->string
+    yylval.str = copyString (yytext); // for value->string
     fprintf (yyout, "--- STRING \"%s\"---\n", yytext);
     return STRING;
 }
 {boolean} {
-    int istrue = cmpstrignorecase(yytext, "true"); // in json.h/c
+    int istrue = cmpStrIgnoreCase(yytext, "true"); // in json.h/c
     yylval.num_bool = istrue;
     fprintf (yyout, "--- BOOLEAN \"%s\"---\n", yytext);
     return BOOLEAN;

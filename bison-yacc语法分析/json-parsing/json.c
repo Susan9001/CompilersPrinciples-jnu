@@ -9,9 +9,9 @@ char * copyString(char * s) {
     char * t;
     if (s==NULL) return NULL;
     n = strlen(s)+1;
-    t = malloc(n);
+    t = (char*)malloc(n);
     if (t==NULL)
-        fprintf(listing,"Out of memory error!\n");
+        printf("Out of memory error!\n");
     else strcpy(t,s);
     return t;
 }
@@ -35,7 +35,7 @@ TreeNode * newTreeNode (NodeKind kind) {
     TreeNode * t = (TreeNode *) malloc(sizeof(TreeNode));
     int i;
     if (t==NULL)
-        fprintf(listing,"Out of memory error!\n");
+        printf("Out of memory error!\n");
     else {
         for (i=0;i<MAXCHILDREN;i++) 
             t->child[i] = NULL;
@@ -50,7 +50,7 @@ TreeNode * newTreeNode (NodeKind kind) {
 static void printSpaces(void){ 
     int i;
     for (i=0;i<indentno;i++)
-        fprintf(listing," ");
+        printf(" ");
 }
 
 void printTree (TreeNode* tree) {
@@ -62,38 +62,38 @@ void printTree (TreeNode* tree) {
             case vnVal:
                 switch (tree->valkind) {
                     case IntK:
-                        fprintf (listing, "%d\n", tree->attr.num_bool);
+                        printf ( "%d\n", tree->attr.num_bool);
                         break;
                     case FloatK:
-                        fprintf (listing, "%lf\n", tree->attr.db);
+                        printf ( "%lf\n", tree->attr.db);
                         break;
                     case StrK:
-                        fprintf (listing, "%s\n", tree->attr.str);
+                        printf ( "%s\n", tree->attr.str);
                         break;
                     case BoolK:
                         if (tree->attr.num_bool == 0)
-                            fprintf (listing, "false\n");
+                            printf ( "false\n");
                         else if (tree->attr.num_bool == 1)
-                            fprintf (listing, "true\n");
+                            printf ( "true\n");
                         break;
                     case NullK:
-                        fprintf (listing, "null\n");
+                        printf ( "null\n");
                         break;
                     case ObjK:case ArrK:
                         break; // 左右括号在转移到vnObj or vArr时候才转
                     default:
-                        fprintf (listing, "Unexpected ValKind~\n");
+                        printf ( "Unexpected ValKind~\n");
                 } 
             case vnStart:
-                fprintf (listing, "--------JsonTree--------\n");
+                printf ( "--------JsonTree--------\n");
                 break;
             case vnObj:
-                fprintf (listing, "{\n"); 
+                printf ( "{\n"); 
                 break;
                 // 回退时再处理右括号
                 break;
             case vnArr:
-                fprintf (listing, "[\n");
+                printf ( "[\n");
                 break;
                 // 回退时再处理右括号
             case vnMem:
@@ -101,11 +101,11 @@ void printTree (TreeNode* tree) {
             case vnElem:
                 break;
             case vnPair:
-                fprintf (listing, "%s: ", tree->attr.str); // print key
+                printf ( "%s: ", tree->attr.str); // print key
                 INDENT; // 抵消掉缩进
                 break;
             default:
-                fprintf (listing, "Unexpected NodeKind~\n");
+                printf ( "Unexpected NodeKind~\n");
                 break;
         }
         // 处理儿子
@@ -114,9 +114,9 @@ void printTree (TreeNode* tree) {
         }
         // 完结括号
         if (tree->nodekind == vnObj) {
-            fprintf (listing, "}\n");
+            printf ( "}\n");
         } else if (tree->nodekind == vnArr) {
-            fprintf (listing, "]\n");
+            printf ( "]\n");
         }
         // sibling主要针对elements
         tree = tree->sibling;

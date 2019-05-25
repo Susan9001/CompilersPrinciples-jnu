@@ -3,11 +3,9 @@
 #include <stdlib.h>
 #include "json.h"
 
-extern "C" {
-    void yyerror (const char*s);
-    extern int yylex(void); // 好像也没有重写啊...
-}
-
+void yyerror(const char*s);
+//extern char*  copyString(char*s);
+//extern int cmpStrIgnoreCase (char* s, char*t);
 TreeNode *root; // 从start开始...
 %}
 
@@ -23,7 +21,7 @@ TreeNode *root; // 从start开始...
 %token BEGIN_OBJECT	 END_OBJECT	
 %token BEGIN_ARRAY	END_ARRAY	
 %token INT  FLOAT   STRING  BOOLEAN NULL_T
-%token SEP_COLON    SEP_COMMA	END_DOCUMENT
+%token SEP_COLON    SEP_COMMA	
 %token SCAN_ERR
 
 %type<num_bool> INT  BOOLEAN
@@ -37,8 +35,8 @@ TreeNode *root; // 从start开始...
 
 %%
 
-start: object END_DOCUMENT 
-     | array END_DOCUMENT {
+start: object 
+     | array {
         $$ = newTreeNode (vnStart);
         $$->child[0] = $1;
         root = $$;
@@ -120,7 +118,6 @@ value: INT {
 %%
 
 int main(int argc, char **argv) {
-    listing = stdout;
     yyparse();
     printTree(root);
     return 0;

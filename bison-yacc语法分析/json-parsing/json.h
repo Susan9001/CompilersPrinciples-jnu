@@ -26,10 +26,8 @@ typedef struct _treeNode {
     } attr;
 } TreeNode;
 
-FILE * listing; // output. declared in func main, "json.y" 
-
-char * copyString (char* s);
-int cmpStrIgnoreCase(char* s, char* t);
+extern char * copyString (char* s);
+extern int cmpStrIgnoreCase(char* s, char* t);
 
 TreeNode* newTreeNode (NodeKind nodekind); // 词
 
