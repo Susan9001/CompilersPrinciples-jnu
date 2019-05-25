@@ -9,7 +9,7 @@
 digit [0-9]
 integer [-+]?{digit}+
 double [-+]?{digit}+[.]{digit}+
-string [\"]([^"])*[\"]
+string [\"](\\\"|[^"])*[\"]
 boolean false|true|FALSE|TRUE|False|True
 null null|NULL|Null
 space [ \t\n\r]+
@@ -17,60 +17,54 @@ space [ \t\n\r]+
 %%
 
 "{" {
-    yylval.pNode = NULL;
-    fprintf(yyout, "--- BEGIN_OBJECT \"{\"---\n");
+    fprintf(yyout, "\tBEGIN_OBJECT \"{\"\n");
     return BEGIN_OBJECT;
 }
 "}" {
-    yylval.pNode = NULL;
-    fprintf(yyout, "--- END_OBJECT \"}\"---\n");
+    fprintf(yyout, "	END_OBJECT \"}\"\n");
     return END_OBJECT;
 }
 "[" {
-    yylval.pNode = NULL;
-    fprintf(yyout, "--- BEGIN_ARRAY \"[\"---\n");
+    fprintf(yyout, "	BEGIN_ARRAY \"[\"\n");
     return BEGIN_ARRAY;
 }
 "]" {
-    yylval.pNode = NULL;
-    fprintf(yyout, "--- END_ARRAY \"[\"---\n");
+    fprintf(yyout, "	END_ARRAY \"[\"\n");
     return END_ARRAY;
 }
 "," {
-    yylval.pNode = NULL;
-    fprintf(yyout, "--- SEP_COMMA \",\"---\n");
+    fprintf(yyout, "	SEP_COMMA \",\"\n");
     return SEP_COMMA;
 }
-";" {
-    fprintf(yyout, "--- SEP_COLON \";\"---\n");
-    yylval.pNode = NULL;
+":" {
+    fprintf(yyout, "	SEP_COLON \":\"\n");
     return SEP_COLON;
 }
 {integer} {
-    int num = atoi (yytext);
+    int num = atoi(yytext);
     yylval.num_bool = num; // for value->int
-    fprintf(yyout, "--- INT \"%d\"---\n", num);
+    fprintf(yyout, "	INT \"%d\"\n", num);
     return INT;
 }
 {double} {
     double num = atof (yytext);
     yylval.db = num; // for value->int
-    fprintf(yyout, "--- FLOAT \"%lf\"---\n", num);
+    fprintf(yyout, "	FLOAT \"%lf\"\n", num);
     return FLOAT;
 }
 {string} {
     yylval.str = copyString (yytext); // for value->string
-    fprintf (yyout, "--- STRING \"%s\"---\n", yytext);
+    fprintf (yyout, "	STRING \"%s\"\n", yylval.str);
     return STRING;
 }
 {boolean} {
     int istrue = cmpStrIgnoreCase(yytext, "true"); // in json.h/c
     yylval.num_bool = istrue;
-    fprintf (yyout, "--- BOOLEAN \"%s\"---\n", yytext);
+    fprintf (yyout, "	BOOLEAN \"%s\"\n", yytext);
     return BOOLEAN;
 }
 {null} {
-    fprintf (yyout, "--- NULL --------\n");    
+    fprintf (yyout, "	NULL \n");    
     return NULL_T;
 }
 {space}  { /*do nothing...*/ }

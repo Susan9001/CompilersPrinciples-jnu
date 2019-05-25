@@ -1,21 +1,21 @@
-1)start ->object END_DOCUMENT;
-2)start ->array END_DOCUMENT;
-3)object -> BEGIN_OBJECT END_OBJECT;
-4)object -> BEGIN_OBJECT members END_OBJECT;
-5)members ->pair;
-6)members ->pair SEP_COMMA pair;
-7)array ->BEGIN_ARRAY END_ARRAY;
-8)array ->BEGIN_ARRAY elements END_ARRAY;
-9)elements -> value;
-10)elements -> value SEP_COMMA elements
-11)pair -> STRING SEP_COLON value;
-12)value -> STRING ;
-13)value -> object;
-14)value -> BOOLEAN;
-15)value -> NULL;
-16)value -> array;
-17)value -> INT;
-18)value–> FLOAT;
+start ->object END_DOCUMENT
+start ->array END_DOCUMENT
+object -> BEGIN_OBJECT END_OBJECT
+object -> BEGIN_OBJECT members END_OBJECT
+members ->pair
+members ->members SEP_COMMA pair
+array ->BEGIN_ARRAY END_ARRAY
+array ->BEGIN_ARRAY elements END_ARRAY
+elements -> value
+elements -> elements SEP_COMMA value
+pair -> STRING SEP_COLON value
+value -> STRING
+value -> object
+value -> BOOLEAN
+value -> NULL
+value -> array
+value -> INT
+value–> FLOAT
 
 
 
