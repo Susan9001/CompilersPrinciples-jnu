@@ -1,34 +1,110 @@
 	BEGIN_OBJECT "{"
+	STRING ""nodes""
+	SEP_COLON ":"
+	BEGIN_ARRAY "["
+	BEGIN_OBJECT "{"
 	STRING ""uuid""
 	SEP_COLON ":"
-	STRING ""abc""
+	STRING ""f3c6dab1-09f2-4111-bafc-b7ccf94c8ae6""
 value -> STRING
 pair -> STRING : value
 members->pair
 	SEP_COMMA ","
-	STRING ""listt""
+	STRING ""codeName""
+	SEP_COLON ":"
+	STRING ""dp_tensorflow_140_new""
+value -> STRING
+pair -> STRING : value
+members->members , pair
+	SEP_COMMA ","
+	STRING ""originAlgoName""
+	SEP_COLON ":"
+	STRING ""dp_tensorflow_140_new""
+value -> STRING
+pair -> STRING : value
+members->members , pair
+	SEP_COMMA ","
+	STRING ""originInstanceId""
+	SEP_COLON ":"
+	INT "1063486"
+value -> INT
+pair -> STRING : value
+members->members , pair
+	SEP_COMMA ","
+	STRING ""posX""
+	SEP_COLON ":"
+	INT "-183"
+value -> INT
+pair -> STRING : value
+members->members , pair
+	SEP_COMMA ","
+	STRING ""posY""
+	SEP_COLON ":"
+	INT "44"
+value -> INT
+pair -> STRING : value
+members->members , pair
+	SEP_COMMA ","
+	STRING ""isModel""
+	SEP_COLON ":"
+	BOOLEAN "false"
+value -> BOOLEAN
+pair -> STRING : value
+members->members , pair
+	SEP_COMMA ","
+	STRING ""params""
 	SEP_COLON ":"
 	BEGIN_ARRAY "["
-	STRING ""list1""
+	BEGIN_OBJECT "{"
+	STRING ""name""
+	SEP_COLON ":"
+	STRING ""buckets""
 value -> STRING
+pair -> STRING : value
+members->pair
+	SEP_COMMA ","
+	STRING ""value""
+	SEP_COLON ":"
+	STRING ""oss://image-completion.oss-cn-beijing-internal.aliyuncs.com/""
+value -> STRING
+pair -> STRING : value
+members->members , pair
+	END_OBJECT "}"
+obj->members
+value -> object
 elements -> value
 	SEP_COMMA ","
-	STRING ""list2""
+	BEGIN_OBJECT "{"
+	STRING ""name""
+	SEP_COLON ":"
+	STRING ""entryFile""
 value -> STRING
+pair -> STRING : value
+members->pair
+	SEP_COMMA ","
+	STRING ""value""
+	SEP_COLON ":"
+	STRING ""train.py""
+value -> STRING
+pair -> STRING : value
+members->members , pair
+	END_OBJECT "}"
+obj->members
+value -> object
 elements -> value , elements
 	SEP_COMMA ","
 	BEGIN_OBJECT "{"
 	STRING ""name""
 	SEP_COLON ":"
-	STRING ""buck""
+	STRING ""maxTrainingTimeInHour""
 value -> STRING
 pair -> STRING : value
 members->pair
 	SEP_COMMA ","
-	STRING ""val""
+	STRING ""value""
 	SEP_COLON ":"
-	FLOAT "192.110000"
-value -> FLOAT
+	STRING ""24""
+value -> STRING
 pair -> STRING : value
 members->members , pair
 	END_OBJECT "}"
@@ -36,16 +112,203 @@ obj->members
 value -> object
 elements -> value , elements
 	SEP_COMMA ","
-	STRING ""list4""
+	BEGIN_OBJECT "{"
+	STRING ""name""
+	SEP_COLON ":"
+	STRING ""singleOrDistribute""
 value -> STRING
+pair -> STRING : value
+members->pair
+	SEP_COMMA ","
+	STRING ""value""
+	SEP_COLON ":"
+	STRING ""single""
+value -> STRING
+pair -> STRING : value
+members->members , pair
+	END_OBJECT "}"
+obj->members
+value -> object
 elements -> value , elements
 	SEP_COMMA ","
 	BEGIN_OBJECT "{"
-	STRING ""name2""
+	STRING ""name""
 	SEP_COLON ":"
-	BEGIN_ARRAY "["
-	STRING ""cc""
+	STRING ""script""
 value -> STRING
+pair -> STRING : value
+members->pair
+	SEP_COMMA ","
+	STRING ""value""
+	SEP_COLON ":"
+	STRING ""oss://image-completion.oss-cn-beijing-internal.aliyuncs.com/network.pyc""
+value -> STRING
+pair -> STRING : value
+members->members , pair
+	END_OBJECT "}"
+obj->members
+value -> object
+elements -> value , elements
+	SEP_COMMA ","
+	BEGIN_OBJECT "{"
+	STRING ""name""
+	SEP_COLON ":"
+	STRING ""__extend""
+value -> STRING
+pair -> STRING : value
+members->pair
+	SEP_COMMA ","
+	STRING ""value""
+	SEP_COLON ":"
+	STRING ""{\"needGPU\":true}""
+value -> STRING
+pair -> STRING : value
+members->members , pair
+	END_OBJECT "}"
+obj->members
+value -> object
+elements -> value , elements
+	SEP_COMMA ","
+	BEGIN_OBJECT "{"
+	STRING ""name""
+	SEP_COLON ":"
+	STRING ""workerCount""
+value -> STRING
+pair -> STRING : value
+members->pair
+	SEP_COMMA ","
+	STRING ""value""
+	SEP_COLON ":"
+	STRING ""2""
+value -> STRING
+pair -> STRING : value
+members->members , pair
+	END_OBJECT "}"
+obj->members
+value -> object
+elements -> value , elements
+	SEP_COMMA ","
+	BEGIN_OBJECT "{"
+	STRING ""name""
+	SEP_COLON ":"
+	STRING ""confirmLimitHour""
+value -> STRING
+pair -> STRING : value
+members->pair
+	SEP_COMMA ","
+	STRING ""value""
+	SEP_COLON ":"
+	STRING ""true""
+value -> STRING
+pair -> STRING : value
+members->members , pair
+	END_OBJECT "}"
+obj->members
+value -> object
+elements -> value , elements
+	SEP_COMMA ","
+	BEGIN_OBJECT "{"
+	STRING ""name""
+	SEP_COLON ":"
+	STRING ""hyperParameters""
+value -> STRING
+pair -> STRING : value
+members->pair
+	SEP_COMMA ","
+	STRING ""value""
+	SEP_COLON ":"
+	STRING ""oss://image-completion.oss-cn-beijing-internal.aliyuncs.com/在线超参数.txt""
+value -> STRING
+pair -> STRING : value
+members->members , pair
+	END_OBJECT "}"
+obj->members
+value -> object
+elements -> value , elements
+	SEP_COMMA ","
+	BEGIN_OBJECT "{"
+	STRING ""name""
+	SEP_COLON ":"
+	STRING ""psCount""
+value -> STRING
+pair -> STRING : value
+members->pair
+	SEP_COMMA ","
+	STRING ""value""
+	SEP_COLON ":"
+	STRING ""1""
+value -> STRING
+pair -> STRING : value
+members->members , pair
+	END_OBJECT "}"
+obj->members
+value -> object
+elements -> value , elements
+	SEP_COMMA ","
+	BEGIN_OBJECT "{"
+	STRING ""name""
+	SEP_COLON ":"
+	STRING ""gpuRequired""
+value -> STRING
+pair -> STRING : value
+members->pair
+	SEP_COMMA ","
+	STRING ""value""
+	SEP_COLON ":"
+	STRING ""1""
+value -> STRING
+pair -> STRING : value
+members->members , pair
+	END_OBJECT "}"
+obj->members
+value -> object
+elements -> value , elements
+	SEP_COMMA ","
+	BEGIN_OBJECT "{"
+	STRING ""name""
+	SEP_COLON ":"
+	STRING ""workerGPU""
+value -> STRING
+pair -> STRING : value
+members->pair
+	SEP_COMMA ","
+	STRING ""value""
+	SEP_COLON ":"
+	STRING ""1""
+value -> STRING
+pair -> STRING : value
+members->members , pair
+	END_OBJECT "}"
+obj->members
+value -> object
+elements -> value , elements
+	SEP_COMMA ","
+	BEGIN_OBJECT "{"
+	STRING ""name""
+	SEP_COLON ":"
+	STRING ""checkpointDir""
+value -> STRING
+pair -> STRING : value
+members->pair
+	SEP_COMMA ","
+	STRING ""value""
+	SEP_COLON ":"
+	STRING ""oss://image-completion.oss-cn-beijing-internal.aliyuncs.com/checkpoints/""
+value -> STRING
+pair -> STRING : value
+members->members , pair
+	END_OBJECT "}"
+obj->members
+value -> object
+elements -> value , elements
+	END_ARRAY "["
+array ->[ elements ]
+value -> array
+pair -> STRING : value
+members->members , pair
+	END_OBJECT "}"
+obj->members
+value -> object
 elements -> value
 	END_ARRAY "["
 array ->[ elements ]
@@ -53,37 +316,105 @@ value -> array
 pair -> STRING : value
 members->pair
 	SEP_COMMA ","
-	STRING ""val2""
+	STRING ""links""
 	SEP_COLON ":"
-	INT "9394"
-value -> INT
-pair -> STRING : value
-members->members , pair
-	END_OBJECT "}"
-obj->members
-value -> object
-elements -> value , elements
-	SEP_COMMA ","
-	STRING ""list5""
-value -> STRING
-elements -> value , elements
+	BEGIN_ARRAY "["
 	END_ARRAY "["
-array ->[ elements ]
+array ->[ ]
 value -> array
 pair -> STRING : value
 members->members , pair
 	SEP_COMMA ","
-	STRING ""codeN""
+	STRING ""name""
 	SEP_COLON ":"
-	INT "233"
+	STRING ""ImageCompletion-TrainFromStart""
+value -> STRING
+pair -> STRING : value
+members->members , pair
+	SEP_COMMA ","
+	STRING ""description""
+	SEP_COLON ":"
+	STRING """"
+value -> STRING
+pair -> STRING : value
+members->members , pair
+	SEP_COMMA ","
+	STRING ""owner""
+	SEP_COLON ":"
+	STRING ""1037046788500406""
+value -> STRING
+pair -> STRING : value
+members->members , pair
+	SEP_COMMA ","
+	STRING ""version""
+	SEP_COLON ":"
+	STRING ""v2.0""
+value -> STRING
+pair -> STRING : value
+members->members , pair
+	SEP_COMMA ","
+	STRING ""region""
+	SEP_COLON ":"
+	STRING ""cn-beijing""
+value -> STRING
+pair -> STRING : value
+members->members , pair
+	SEP_COMMA ","
+	STRING ""projectId""
+	SEP_COLON ":"
+	INT "59571"
 value -> INT
 pair -> STRING : value
 members->members , pair
 	SEP_COMMA ","
-	STRING ""endM""
+	STRING ""exportTime""
 	SEP_COLON ":"
-	FLOAT "0.888000"
-value -> FLOAT
+	STRING ""May 21, 2019 10:38:46 PM""
+value -> STRING
+pair -> STRING : value
+members->members , pair
+	SEP_COMMA ","
+	STRING ""sourceExperimentId""
+	SEP_COLON ":"
+	INT "81268"
+value -> INT
+pair -> STRING : value
+members->members , pair
+	SEP_COMMA ","
+	STRING ""inputTables""
+	SEP_COLON ":"
+	BEGIN_OBJECT "{"
+	END_OBJECT "}"
+value -> object
+pair -> STRING : value
+members->members , pair
+	SEP_COMMA ","
+	STRING ""containsGpuAlgo""
+	SEP_COLON ":"
+	BOOLEAN "true"
+value -> BOOLEAN
+pair -> STRING : value
+members->members , pair
+	SEP_COMMA ","
+	STRING ""automl""
+	SEP_COLON ":"
+	BEGIN_OBJECT "{"
+	END_OBJECT "}"
+value -> object
+pair -> STRING : value
+members->members , pair
+	SEP_COMMA ","
+	STRING ""absolutePosition""
+	SEP_COLON ":"
+	BOOLEAN "true"
+value -> BOOLEAN
+pair -> STRING : value
+members->members , pair
+	SEP_COMMA ","
+	STRING ""sign""
+	SEP_COLON ":"
+	STRING ""674ac0187ed29501e7dea895d3268929""
+value -> STRING
 pair -> STRING : value
 members->members , pair
 	END_OBJECT "}"
@@ -92,23 +423,86 @@ obj->members
 
 -----Reconstruct from the Syntax Tree-----
 {
-    "uuid": "abc"
-    "listt":   [
-        "list1"
-        "list2"
-         {
-            "name": "buck"
-            "val": 0.000000
-    }
-        "list4"
-         {
-            "name2":       [
-                "cc"
+    "nodes":   [
+            {
+            "uuid": "f3c6dab1-09f2-4111-bafc-b7ccf94c8ae6"
+            "codeName": "dp_tensorflow_140_new"
+            "originAlgoName": "dp_tensorflow_140_new"
+            "originInstanceId": 1063486
+            "posX": -183
+            "posY": 44
+            "isModel": false
+            "params":       [
+                        {
+                    "name": "buckets"
+                    "value": "oss://image-completion.oss-cn-beijing-internal.aliyuncs.com/"
+        }
+                        {
+                    "name": "entryFile"
+                    "value": "train.py"
+        }
+                        {
+                    "name": "maxTrainingTimeInHour"
+                    "value": "24"
+        }
+                        {
+                    "name": "singleOrDistribute"
+                    "value": "single"
+        }
+                        {
+                    "name": "script"
+                    "value": "oss://image-completion.oss-cn-beijing-internal.aliyuncs.com/network.pyc"
+        }
+                        {
+                    "name": "__extend"
+                    "value": "{\"needGPU\":true}"
+        }
+                        {
+                    "name": "workerCount"
+                    "value": "2"
+        }
+                        {
+                    "name": "confirmLimitHour"
+                    "value": "true"
+        }
+                        {
+                    "name": "hyperParameters"
+                    "value": "oss://image-completion.oss-cn-beijing-internal.aliyuncs.com/在线超参数.txt"
+        }
+                        {
+                    "name": "psCount"
+                    "value": "1"
+        }
+                        {
+                    "name": "gpuRequired"
+                    "value": "1"
+        }
+                        {
+                    "name": "workerGPU"
+                    "value": "1"
+        }
+                        {
+                    "name": "checkpointDir"
+                    "value": "oss://image-completion.oss-cn-beijing-internal.aliyuncs.com/checkpoints/"
+        }
       ]
-            "val2": 9394
     }
-        "list5"
   ]
-    "codeN": 233
-    "endM": 0.000000
+    "links":   [
+  ]
+    "name": "ImageCompletion-TrainFromStart"
+    "description": ""
+    "owner": "1037046788500406"
+    "version": "v2.0"
+    "region": "cn-beijing"
+    "projectId": 59571
+    "exportTime": "May 21, 2019 10:38:46 PM"
+    "sourceExperimentId": 81268
+    "inputTables":   {
+  }
+    "containsGpuAlgo": true
+    "automl":   {
+  }
+    "absolutePosition": true
+    "sign": "674ac0187ed29501e7dea895d3268929"
 }
