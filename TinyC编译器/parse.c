@@ -46,10 +46,9 @@ TreeNode * stmt_sequence(void){
             (token!=ELSE) && (token!=UNTIL)) {
         TreeNode * q;
         match(SEMI);
-        // added by qxk; or 分号之后就不能加END, UNTIL这个4个了
-        if ((token==ENDFILE) || (token==END) ||
-            (token==ELSE) || (token==UNTIL)) 
-            break;
+        // added by qxk; or 鍒嗗彿涔嬪悗灏变笉鑳借窡END, UNTIL杩欎釜鍑犱釜鍏抽敭瀛椾簡
+        //if ((token==ENDFILE) || (token==END) ||(token==ELSE) || (token==UNTIL)) 
+            //break;
         q = statement(); 
         if (q!=NULL) {
             if (t==NULL) t = p = q;
@@ -156,7 +155,7 @@ TreeNode * exp(void){
      **/
     TreeNode * t = simple_exp();
     if ((token==LT)||(token==EQ)) {
-        TreeNode * p = newExpNode(OpK); // 生成中间>/=节点
+        TreeNode * p = newExpNode(OpK); // 鐢熸垚涓棿>/=鑺傜偣
         if (p!=NULL) {
             p->child[0] = t;
             p->attr.op = token; 
@@ -165,7 +164,7 @@ TreeNode * exp(void){
         match(token);
         if (t!=NULL)
             t->child[1] = simple_exp();
-    } // else 则是exp -> simple_exp
+    } // else 鍒欐槸exp -> simple_exp
     return t;
 }
 
@@ -232,7 +231,7 @@ TreeNode * factor(void) {
     else { // (exp)
         match (LPAREN); // match "("
         t = exp ();
-        match (REPEAT); // match ")"
+        match (RPATERN); // match ")"
     }
     return t;
 }
