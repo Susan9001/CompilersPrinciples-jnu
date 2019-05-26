@@ -231,7 +231,7 @@ TreeNode * factor(void) {
     else { // (exp)
         match (LPAREN); // match "("
         t = exp ();
-        match (RPATERN); // match ")"
+        match (RPAREN); // match ")"
     }
     return t;
 }
