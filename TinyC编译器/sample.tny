@@ -2,14 +2,15 @@
   in TINY language -
   computes factorial
 }
+{只有语义错误}
 read x; { input an integer}
 if 0 < x then { don't compute if x <= 0 }
   fact := 1;
   repeat
-    fact := fact * x;
+    fact := fact < x; {ERROR 0}
     x := x - 1
-  until x = 0;
-  write fact { output factorial of x }
+  until 3; {ERROR 1}
+  write 0 < x {ERROR 2}
 end
 
 

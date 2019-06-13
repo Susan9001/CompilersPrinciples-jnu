@@ -13,14 +13,14 @@ start: expr STOP {
 expr: term {$$ = $1;}
     | term PLUS term {
         $$ = $1 + $3;
-        printf("%d + %d = %d, PLUS = %d\n", $1, $3, $$, PLUS);
+        // printf("%d + %d = %d, PLUS = %d\n", $1, $3, $$, PLUS);
     }
     | term MINUS term {$$ = $1 - $3;}
 ;
 term: factor {$$ = $1;}
     | factor MUL factor {
         $$ = $1 * $3;
-        printf("%d * %d = %d\n", $1, $3, $$);
+        // printf("%d * %d = %d\n", $1, $3, $$);
     }
     | factor DIV factor {$$ = $1 / $3;}
 ;

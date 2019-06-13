@@ -3,7 +3,7 @@
 output="result.txt"
 analyser="json_parser"
 CC="gcc"
-target="json"
+target=json
 buffer="tmp.txt"
 end_doc="#"
 
@@ -21,7 +21,7 @@ gcc -g "${target}_y.o" "${target}_l.o" "${target}.o" -o "${target}"_parser -lfl
 rm lex.yy.c "${target}.tab.h" "${target}.tab.c" *.o 
 
 # 运行
-./${analyser} <${buffer}> ${output} && vim -O ${output} 
+./${analyser} <${buffer}> ${output} && vim -O ${output} $1 
 
 # 删掉buffer file
 rm ${buffer}

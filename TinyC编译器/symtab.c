@@ -18,37 +18,39 @@
    in hash function  */
 #define SHIFT 4
 
-/* the hash function */
-static int hash ( char * key )
-{ int temp = 0;
-  int i = 0;
-  while (key[i] != '\0')
-  { temp = ((temp << SHIFT) + key[i]) % SIZE;
-    ++i;
-  }
-  return temp;
+   /* the hash function */
+static int hash(char * key) {
+	int temp = 0;
+	int i = 0;
+	while (key[i] != '\0') {
+		temp = ((temp << SHIFT) + key[i]) % SIZE;
+		++i;
+	}
+	return temp;
 }
 
-/* the list of line numbers of the source 
+/* the list of line numbers of the source
  * code in which a variable is referenced
+ * 就是某变量出现在代码第几行
  */
-typedef struct LineListRec
-   { int lineno;
-     struct LineListRec * next;
-   } * LineList;
+typedef struct LineListRec {
+	int lineno;
+	struct LineListRec * next;
+} *LineList;
 
 /* The record in the bucket lists for
- * each variable, including name, 
+ * each variable, including name,
  * assigned memory location, and
  * the list of line numbers in which
  * it appears in the source code
+ * 静态链表(?
  */
-typedef struct BucketListRec
-   { char * name;
-     LineList lines;
-     int memloc ; /* memory location for variable */
-     struct BucketListRec * next;
-   } * BucketList;
+typedef struct BucketListRec {
+	char * name;
+	LineList lines;
+	int memloc; /* memory location for variable */
+	struct BucketListRec * next;
+} *BucketList;
 
 /* the hash table */
 static BucketList hashTable[SIZE];
@@ -58,48 +60,77 @@ static BucketList hashTable[SIZE];
  * loc = memory location is inserted only the
  * first time, otherwise ignored
  */
-void st_insert( char * name, int lineno, int loc )
-{ 
-  /* 请完成符号表条目插入子程序。
-     先找，找不到说明定义了一个新名字，则插入新条目，默认插在其对应哈希表项的表头；
-     找到说明仅对名字进行引用，则将行号加入到该名字的行链中  */
-  
+void st_insert(char * name, int lineno, int loc) {
+	/* 请完成符号表条目插入子程序。	   先找，找不到说明定义了一个新名字，则插入新条目，默认插在其对应哈希表项的表头；
+	   找到说明仅对名字进行引用，则将行号加入到该名字的行链中  */
+    struct BucketListRec * buckPtr;
+    struct LineListRec * linePtr;
+    int hashCode = hash (name);
+    LineList p;
+
+    linePtr = (struct LineListRec *)malloc(sizeof (struct LineListRec));
+    linePtr->lineno = lineno;    
+    linePtr->next = NULL;
+
+    // 查找
+    while (buckPtr != NULL && strcmp (name, buckPtr->name) != 0)
+        buckPtr = buckPtr->next;
+
+    if (buckPtr == NULL) { // not exist yet
+        buckPtr = (struct BucketListRec *)malloc(sizeof (struct BucketListRec));
+        buckPtr->name = copyString (name);
+        buckPtr->lines = linePtr;
+        buckPtr->memloc = loc;
+        buckPtr->next = hashTable[hashCode]; 
+        hashTable[hashCode] = buckPtr;
+    } else { // exists
+        // 查找linelist的尾
+        p = buckPtr->lines;
+        while (p->next != NULL)
+            p = p->next;
+        p->next = linePtr;
+    }
+
 } /* st_insert */
 
-/* Function st_lookup returns the memory 
+/* Function st_lookup returns the memory
  * location of a variable or -1 if not found
  */
-int st_lookup ( char * name )
-{ int h = hash(name);
-  BucketList l =  hashTable[h];
-  while ((l != NULL) && (strcmp(name,l->name) != 0))
-    l = l->next;
-  if (l == NULL) return -1;
-  else return l->memloc;
+int st_lookup(char * name) {
+	int h = hash(name);
+	BucketList l = hashTable[h];
+	while ((l != NULL) && (strcmp(name, l->name) != 0))
+		l = l->next;
+	if (l == NULL) return -1;
+	else return l->memloc;
 }
 
-/* Procedure printSymTab prints a formatted 
- * listing of the symbol table contents 
+/* Procedure printSymTab prints a formatted
+ * listing of the symbol table contents
  * to the listing file
  */
-void printSymTab(FILE * listing)
-{ int i;
-  fprintf(listing,"Variable Name  Location   Line Numbers\n");
-  fprintf(listing,"-------------  --------   ------------\n");
-  for (i=0;i<SIZE;++i)
-  { if (hashTable[i] != NULL)
-    { BucketList l = hashTable[i];
-      while (l != NULL)
-      { LineList t = l->lines;
-        fprintf(listing,"%-14s ",l->name);
-        fprintf(listing,"%-8d  ",l->memloc);
-        while (t != NULL)
-        { fprintf(listing,"%4d ",t->lineno);
-          t = t->next;
-        }
-        fprintf(listing,"\n");
-        l = l->next;
-      }
-    }
-  }
+void printSymTab(FILE * listing) {
+	int i;
+	fprintf(listing, "Variable Name  Location   Line Numbers\n");
+	fprintf(listing, "-------------  --------   ------------\n");
+
+	for (i = 0; i < SIZE; ++i) {
+		if (hashTable[i] != NULL) {
+			BucketList l = hashTable[i];
+			while (l != NULL) {
+				LineList t = l->lines;
+				fprintf(listing, "%-14s ", l->name);
+				fprintf(listing, "%-8d  ", l->memloc);
+				while (t != NULL) {
+					fprintf(listing, "%4d ", t->lineno);
+					t = t->next;
+				}
+				fprintf(listing, "\n");
+				l = l->next;
+			}
+		}
+	}
 } /* printSymTab */
+
+
+

@@ -1219,7 +1219,7 @@ yyreduce:
 #line 14 "expr.y" /* yacc.c:1646  */
     {
         (yyval) = (yyvsp[-2]) + (yyvsp[0]);
-        printf("%d + %d = %d, PLUS = %d\n", (yyvsp[-2]), (yyvsp[0]), (yyval), PLUS);
+        // printf("%d + %d = %d, PLUS = %d\n", $1, $3, $$, PLUS);
     }
 #line 1225 "expr.tab.c" /* yacc.c:1646  */
     break;
@@ -1240,7 +1240,7 @@ yyreduce:
 #line 21 "expr.y" /* yacc.c:1646  */
     {
         (yyval) = (yyvsp[-2]) * (yyvsp[0]);
-        printf("%d * %d = %d\n", (yyvsp[-2]), (yyvsp[0]), (yyval));
+        // printf("%d * %d = %d\n", $1, $3, $$);
     }
 #line 1246 "expr.tab.c" /* yacc.c:1646  */
     break;

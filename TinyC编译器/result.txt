@@ -1,59 +1,18 @@
 
 TINY COMPILATION: sample.tny
-	5: reserved word: read
-	5: ID, name= x
-	5: ;
-	6: reserved word: if
-	6: NUM, val= 0
-	6: <
-	6: ID, name= x
-	6: reserved word: then
-	7: ID, name= fact
-	7: :=
-	7: NUM, val= 1
-	7: ;
-	8: reserved word: repeat
-	9: ID, name= fact
-	9: :=
-	9: ID, name= fact
-	9: *
-	9: ID, name= x
-	9: ;
-	10: ID, name= x
-	10: :=
-	10: ID, name= x
-	10: -
-	10: NUM, val= 1
-	11: reserved word: until
-	11: ID, name= x
-	11: =
-	11: NUM, val= 0
-	11: ;
-	12: reserved word: write
-	12: ID, name= fact
-	13: reserved word: end
-	17: EOF
 
-Syntax tree:
-  Read: x
-  If
-    Op: <
-      Const: 0
-      Id: x
-    Assign to: fact
-      Const: 1
-    Repeat
-      Assign to: fact
-        Op: *
-          Id: fact
-          Id: x
-      Assign to: x
-        Op: -
-          Id: x
-          Const: 1
-      Op: =
-        Id: x
-        Const: 0
-    Write
-      Id: fact
-	18: EOF
+Building Symbol Table...
+
+Symbol table:
+
+Variable Name  Location   Line Numbers
+-------------  --------   ------------
+x              0            6    7   10   11   11   13 
+fact           1            8   10   10 
+
+Checking Types...
+Type error at line 10: 变量必须为整型！
+Type error at line 12: repeat的条件必须放bool型!
+Type error at line 13: 只能write整型!
+
+Type Checking Finished

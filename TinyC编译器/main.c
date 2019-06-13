@@ -8,7 +8,7 @@
 /* set NO_PARSE to TRUE to get a scanner-only compiler */
 #define NO_PARSE FALSE // 当前仅词法分析
 /* set NO_ANALYZE to TRUE to get a parser-only compiler */
-#define NO_ANALYZE TRUE
+#define NO_ANALYZE FALSE
 /* set NO_CODE to TRUE to get a compiler that does not
  * generate code
  */
@@ -16,6 +16,7 @@
 
 #include "util.h"
 #include "scan.h"
+#include "analyze.h"
 
  /* allocate global variables */
 int lineno = 0;
@@ -25,9 +26,9 @@ FILE * code;
 
 /* allocate and set tracing flags */
 int EchoSource = FALSE;
-int TraceScan = TRUE; // 词法分析调试
-int TraceParse = TRUE; // 语法分析
-int TraceAnalyze = FALSE; 
+int TraceScan = FALSE; // 词法分析调试
+int TraceParse = FALSE; // 语法分析
+int TraceAnalyze = TRUE; 
 int TraceCode = FALSE;
 
 int Error = FALSE;
