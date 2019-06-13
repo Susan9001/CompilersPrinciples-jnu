@@ -1,8 +1,8 @@
 #!/bin/bash
 rm ~/.cache/SpaceVim/swap/*.swp
-input="sample.tny"
+input="fib.tny"
 make && make clean
-./AnalyzeTool $input
+./CompletedTool $input
 vim -O $input result.txt
 
 

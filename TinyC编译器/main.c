@@ -12,11 +12,13 @@
 /* set NO_CODE to TRUE to get a compiler that does not
  * generate code
  */
-#define NO_CODE TRUE
+#define NO_CODE FALSE
 
 #include "util.h"
 #include "scan.h"
 #include "analyze.h"
+#include "code.h"
+#include "cgen.h"
 
  /* allocate global variables */
 int lineno = 0;
@@ -26,10 +28,10 @@ FILE * code;
 
 /* allocate and set tracing flags */
 int EchoSource = FALSE;
-int TraceScan = FALSE; // 词法分析调试
-int TraceParse = FALSE; // 语法分析
+int TraceScan = TRUE; // 词法分析调试
+int TraceParse = TRUE; // 语法分析
 int TraceAnalyze = TRUE; 
-int TraceCode = FALSE;
+int TraceCode = TRUE;
 
 int Error = FALSE;
 

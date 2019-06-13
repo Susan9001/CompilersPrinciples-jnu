@@ -1,0 +1,25 @@
+{兔子数列}
+read num; {个数}
+result := 0;
+if 0 < num then
+    if num = 1 then
+        result := 1;
+        write result
+    else
+        i := 3;
+        fa := 1;
+        fb := 1;
+        write fa;
+        write fb;
+        repeat 
+            result := fa + fb;
+            write result;
+            fa := fb;
+            fb := result;
+            i := i + 1
+        until (num < i)
+    end
+end
+
+
+

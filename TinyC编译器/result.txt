@@ -1,5 +1,124 @@
 
-TINY COMPILATION: sample.tny
+TINY COMPILATION: fib.tny
+	2: reserved word: read
+	2: ID, name= num
+	2: ;
+	3: ID, name= result
+	3: :=
+	3: NUM, val= 0
+	3: ;
+	4: reserved word: if
+	4: NUM, val= 0
+	4: <
+	4: ID, name= num
+	4: reserved word: then
+	5: reserved word: if
+	5: ID, name= num
+	5: =
+	5: NUM, val= 1
+	5: reserved word: then
+	6: ID, name= result
+	6: :=
+	6: NUM, val= 1
+	6: ;
+	7: reserved word: write
+	7: ID, name= result
+	8: reserved word: else
+	9: ID, name= i
+	9: :=
+	9: NUM, val= 3
+	9: ;
+	10: ID, name= fa
+	10: :=
+	10: NUM, val= 1
+	10: ;
+	11: ID, name= fb
+	11: :=
+	11: NUM, val= 1
+	11: ;
+	12: reserved word: write
+	12: ID, name= fa
+	12: ;
+	13: reserved word: write
+	13: ID, name= fb
+	13: ;
+	14: reserved word: repeat
+	15: ID, name= result
+	15: :=
+	15: ID, name= fa
+	15: +
+	15: ID, name= fb
+	15: ;
+	16: reserved word: write
+	16: ID, name= result
+	16: ;
+	17: ID, name= fa
+	17: :=
+	17: ID, name= fb
+	17: ;
+	18: ID, name= fb
+	18: :=
+	18: ID, name= result
+	18: ;
+	19: ID, name= i
+	19: :=
+	19: ID, name= i
+	19: +
+	19: NUM, val= 1
+	20: reserved word: until
+	20: (
+	20: ID, name= num
+	20: <
+	20: ID, name= i
+	20: )
+	21: reserved word: end
+	22: reserved word: end
+	26: EOF
+
+Syntax tree:
+  Read: num
+  Assign to: result
+    Const: 0
+  If
+    Op: <
+      Const: 0
+      Id: num
+    If
+      Op: =
+        Id: num
+        Const: 1
+      Assign to: result
+        Const: 1
+      Write
+        Id: result
+      Assign to: i
+        Const: 3
+      Assign to: fa
+        Const: 1
+      Assign to: fb
+        Const: 1
+      Write
+        Id: fa
+      Write
+        Id: fb
+      Repeat
+        Assign to: result
+          Op: +
+            Id: fa
+            Id: fb
+        Write
+          Id: result
+        Assign to: fa
+          Id: fb
+        Assign to: fb
+          Id: result
+        Assign to: i
+          Op: +
+            Id: i
+            Const: 1
+        Op: <
+          Id: num
+          Id: i
 
 Building Symbol Table...
 
@@ -7,12 +126,13 @@ Symbol table:
 
 Variable Name  Location   Line Numbers
 -------------  --------   ------------
-x              0            6    7   10   11   11   13 
-fact           1            8   10   10 
+fa             3           10   12   15   17 
+fb             4           11   13   15   17   18 
+i              2            9   19   19   20 
+result         1            3    6    7   15   16   18 
+num            0            2    4    5   20 
 
 Checking Types...
-Type error at line 10: 变量必须为整型！
-Type error at line 12: repeat的条件必须放bool型!
-Type error at line 13: 只能write整型!
 
 Type Checking Finished
+	27: EOF

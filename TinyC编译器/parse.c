@@ -48,7 +48,7 @@ TreeNode * stmt_sequence(void){
         match(SEMI);
         // added by qxk; or 分号之后就不能跟END, UNTIL这个几个关键字了
         //if ((token==ENDFILE) || (token==END) ||(token==ELSE) || (token==UNTIL)) 
-            //break;
+        //    break;
         q = statement(); 
         if (q!=NULL) {
             if (t==NULL) t = p = q;
@@ -94,6 +94,7 @@ TreeNode * if_stmt(void) {
             match (token); 
         }
         else if (token == ELSE) {
+            match (ELSE); // 把else过掉!
             t->child[2] = stmt_sequence ();
             match (END);
         }

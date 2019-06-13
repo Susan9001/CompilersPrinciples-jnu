@@ -1,7 +1,7 @@
 CC = gcc
-OBJ = main.o parse.o scan.o util.o analyze.o symtab.o
+OBJ = main.o parse.o scan.o util.o analyze.o symtab.o cgen.o code.o
 
-AnalyzeTool	:	$(OBJ)
+CompletedTool :	$(OBJ)
 	$(CC) 	-o	$@ 	$^
 %.o	:	%.c
 	$(CC)	-c -g	$<	
