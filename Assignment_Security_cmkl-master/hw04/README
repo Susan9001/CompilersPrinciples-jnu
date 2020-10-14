@@ -1,0 +1,102 @@
+The goal of this assignment is to gain hands-on experience in finding
+vulnerabilities in code and mounting buffer overflow attacks. You are
+given the source code for six exploitable programs which are to be
+installed with setuid root in a virtual machine we provide. You'll have
+to identify a vulnerability (buffer overflow, double free, format string
+vulnerability, etc) in each program. You'll write an exploit for each
+that executes the vulnerable program with crafted argument, causing it
+to jump to a exploit string. In each instance, the result will yield a
+user:hw04app's shell even though the attack was run by another user.
+
+Environment
+===========
+
+You'll run your exploits in a remote server.
+This serves two purposes. First, the vulnerable programs
+contain real, exploitable vulnerabilities and we strongly advise against
+installing them with setuid root on your machine. Second, everything
+from the particular compiler version, to the operating system and
+installed library versions will affect the exact location of code on the
+stack. The server provides an identical environment to the one in which the
+assignment will be tested for grading.
+
+The server is configured with Ubuntu Linux 18.04.3, with ASLR (address
+randomization) turned off. The exploits will be run as your user and should
+yield a command line shell (/bin/sh) running as "hw04app".
+
+The server has an OpenSSH server running so you
+can login from your local machine as well as transfer files using, e.g.,
+ssh and scp.
+
+Targets and Skeleton code
+=========================
+
+The targets/ directory in the assignment zipfile contains the source
+code for the vulnerable targets as well as a Makefile for building and
+installing them on the VM. Specifically, to install the target programs,
+as your user:
+
+    $ cd targets
+    $ make
+
+This will compile all of the target programs, set the executable stack
+flag on each of the resulting executables.
+
+Please note that the target programs has also been installed with setuid
+'hw04app' in /tmp. This has already been performed by the instructor.
+You could not perform this operation because it requires root privilege.
+    $ make install
+
+Your exploits must assume that the target programs are installed in
+/tmp/ -- /tmp/target1, /tmp/target2, etc.
+
+Exploit Skeleton Code
+---------------------
+
+The sploits/ directory in the assignment zipfile contains skeleton code
+for the exploits you'll write, named sploit1.c, sploit2.c, etc, to
+correspond with the targets. Also included is the header file
+shellcode.h, which provides Aleph One's shellcode in the static variable
+static char* shellcode.
+
+Deliverables
+============
+
+You'll need to submit two things. The zipfile of your sploit works
+and the links to YouTube videos showing your successful attacks.
+
+The submitted zipfile should contain the exploits and a Makefile to build
+them. Running make with no arguments from your extrated submission
+zipfile should yield sploit1 through sploit6 executables in the same
+directory. 
+
+Assuming you use the skeleton code (which is highly recommended), you
+can create such a zipfile by running make submission for the top level
+directory of the assignment source. This command will output a file
+submission.zip which you can submit.
+
+Setup: Set-by-step
+==================
+
+SSH into the remote server:
+    $ ssh username@remote_server
+
+Build and install the targets (optional; students cannot perform 'install'):
+
+    $ cd hw04/targets
+    $ make && sudo make install
+
+Write, build and test your exploits:
+
+    $ cd ../sploits
+    ...edit,test...
+    $ make
+    $ ./sploit1
+
+
+
+----------------------------------------------
+Credit Note: This project setup was taken with 
+minimal modification from Stanford CS155 class 
+(Spring 2014).
+----------------------------------------------
